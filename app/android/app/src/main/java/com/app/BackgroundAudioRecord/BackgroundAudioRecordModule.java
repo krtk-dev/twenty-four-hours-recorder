@@ -1,9 +1,10 @@
-package com.koreanthinker.backgroundaudiorecord;
+package com.app.BackgroundAudioRecord;
+
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.koreanthinker.audiorecording.BackgroundAudioRecord;
 import com.facebook.react.bridge.Callback;
 
 public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
@@ -24,19 +25,17 @@ public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startService() {
-        if (mBackgroundAudioRecord != null) {
-            return;
-        }
+        // if (mBackgroundAudioRecord != null) {
+        // return;
+        // }
         mBackgroundAudioRecord = new BackgroundAudioRecord();
-        if (mBackgroundAudioRecord == null) {
-            return;
-        }
+        Log.d("ASDF", "startService");
         mBackgroundAudioRecord.startService(reactContext);
     }
 
     @ReactMethod
     public void stopService() {
-        mBackgroundAudioRecord.destoryService(reactContext);
+        mBackgroundAudioRecord.stopService(reactContext);
     }
 
     @ReactMethod

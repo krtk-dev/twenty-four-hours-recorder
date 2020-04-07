@@ -1,4 +1,4 @@
-package com.koreanthinker.audiorecording;
+package com.app.BackgroundAudioRecord;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -39,7 +39,7 @@ public class SoundPlayer {
         }
 
         DataInputStream dis = new DataInputStream(fis);
-        mAudioTrack.play();  // write 하기 전에 play 를 먼저 수행해 주어야 함
+        mAudioTrack.play(); // write 하기 전에 play 를 먼저 수행해 주어야 함
         while (isPlaying) {
             try {
                 int ret = dis.read(writeData, 0, mBufferSize);
@@ -68,10 +68,11 @@ public class SoundPlayer {
 
     public void Play(String filePath, int bufferSize, int sampleRate, int channelCount, int audioFormat) {
         isPlaying = true;
-        Log.d(TAG,filePath);
+        Log.d(TAG, filePath);
         mFilePath = filePath;
         mBufferSize = bufferSize;
-        mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, channelCount, audioFormat, bufferSize, AudioTrack.MODE_STREAM); // AudioTrack 생성
+        mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, channelCount, audioFormat, bufferSize,
+                AudioTrack.MODE_STREAM); // AudioTrack 생성
         mPlayThread = new Thread(new Runnable() {
             @Override
             public void run() {

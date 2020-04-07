@@ -2,14 +2,24 @@
   package="com.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
-      android:allowBackup="false"
-      android:theme="@style/AppTheme">
+      android:allowBackup="true"
+      android:theme="@style/AppTheme"
+      android:requestLegacyExternalStorage="true"
+      >
+      <service
+            android:name=".BackgroundAudioRecord.ForeGroundService"
+            android:enabled="true"
+            android:exported="true" />
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

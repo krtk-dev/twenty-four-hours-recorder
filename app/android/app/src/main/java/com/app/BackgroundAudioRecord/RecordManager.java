@@ -1,4 +1,4 @@
-package com.koreanthinker.audiorecording;
+package com.app.BackgroundAudioRecord;
 
 import android.content.Context;
 import android.media.AudioFormat;
@@ -48,9 +48,9 @@ public class RecordManager {
         this.context = context;
         Log.d(TAG, "init recording");
 
-        //soundplayer 설정
+        // soundplayer 설정
         SP = new SoundPlayer();
-        //sd카드 확인
+        // sd카드 확인
         String sdcard = Environment.getExternalStorageState();
         if (!sdcard.equals(Environment.MEDIA_MOUNTED)) {
             // SD카드가 마운트되어있지 않음
@@ -85,28 +85,28 @@ public class RecordManager {
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, ""+ bytePerSec);
+        Log.d(TAG, "" + bytePerSec);
 
         while (isRecording) {
-            //최대 시간 초과시 fos 스위치
+            // 최대 시간 초과시 fos 스위치
             if (bytePerSec * MAX_TIME <= currentFileByte) {
                 // 파일 바이트 변수 초기화
                 currentFileByte = 0;
-                //fos 삭제하기 위해 닫기
+                // fos 삭제하기 위해 닫기
                 try {
                     fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d(TAG, e.getMessage());
                 }
-                //주소 변경
+                // 주소 변경
                 if (currentPath == FILE_PATH_1) {
                     currentPath = FILE_PATH_2;
                 } else {
                     currentPath = FILE_PATH_1;
                 }
 
-                //앞으로 사용할 주소 초기화
+                // 앞으로 사용할 주소 초기화
                 File file = new File(currentPath);
                 if (file.exists()) {
                     if (!file.delete()) {
@@ -151,9 +151,9 @@ public class RecordManager {
         Log.d(TAG, "stop thread");
     }
 
-
     public void onRecord() {
-        if (isRecording) return;
+        if (isRecording)
+            return;
         isRecording = true;
         mAudioRecord = new AudioRecord(mAudioSource, mSampleRate, mChannelCount, mAudioFormat, mBufferSize);
         mAudioRecord.startRecording();
@@ -168,7 +168,8 @@ public class RecordManager {
     }
 
     public void onStop() {
-        if (!isRecording) return;
+        if (!isRecording)
+            return;
         isRecording = false;
         mAudioRecord.stop();
         Log.d(TAG, "stop recording");
@@ -186,7 +187,6 @@ public class RecordManager {
         lastSavePath = SAVE_PATH + "/" + "recordFile" + date + ".wav";
         File saveFile = new File(lastSavePath); // The location where you want your WAV file
         File savePath = new File(SAVE_PATH);
-
 
         if (!savePath.exists()) {
             savePath.mkdirs();

@@ -1,4 +1,4 @@
-package com.koreanthinker.audiorecording;
+package com.app.BackgroundAudioRecord;
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,9 +20,9 @@ public class BackgroundAudioRecord {
         ContextCompat.startForegroundService(context, serviceIntent);
     }
 
-    public void destoryService(Context context) {
-        Intent serviceIntent = new Intent(context, ForeGroundService.class);
-        stopService(serviceIntent);
+    public void stopService(Context context) {
+         Intent serviceIntent = new Intent(context, ForeGroundService.class);
+         context.stopService(serviceIntent);
     }
 
     public void startRecording() {

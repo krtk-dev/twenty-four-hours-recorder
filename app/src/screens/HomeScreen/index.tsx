@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-// import BackgroundAudioRecord from 'react-native-background-audio-record'
+import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord'
 
 const HomeScreen = () => {
 
     useEffect(() => {
-        // BackgroundAudioRecord.startService()
+        console.log("load")
+        BackgroundAudioRecord.startService()
     }, [])
     return (
         <View>

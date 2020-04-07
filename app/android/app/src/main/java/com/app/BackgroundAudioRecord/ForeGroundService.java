@@ -1,4 +1,7 @@
-package com.koreanthinker.audiorecording;
+package com.app.BackgroundAudioRecord;
+
+import com.app.R; //나중에 페키지명 바꿀때 같이 수정좀
+import com.app.MainActivity;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -31,13 +34,13 @@ public class ForeGroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // String input = intent.getStringExtra("inputExtra"); //props 개념
+        Log.d("ASDF", "onCommand");
         createNotificationChannel();
-        Intent notificationIntent = new Intent(this, BackgroundAudioRecord.class);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0); // activity 유지
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID).setContentText("Save last 10 min")
-                // .addAction(R.drawable.ic_launcher_foreground, "save",pendingIntent)
-                // .addAction(R.drawable.ic_launcher_foreground, "other",pendingIntent)
-                // .setSmallIcon(R.drawable.ic_launcher_background)
+                .addAction(R.mipmap.ic_launcher, "save", pendingIntent)
+                .addAction(R.mipmap.ic_launcher, "other", pendingIntent).setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent).build();
 
         startForeground(1, notification);

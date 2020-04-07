@@ -1,4 +1,4 @@
-package com.koreanthinker.backgroundaudiorecord;
+package com.app.BackgroundAudioRecord;
 
 import java.util.Arrays;
 import java.util.Collections;

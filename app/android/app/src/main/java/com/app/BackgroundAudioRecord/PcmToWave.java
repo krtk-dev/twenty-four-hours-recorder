@@ -1,4 +1,4 @@
-package com.koreanthinker.audiorecording;
+package com.app.BackgroundAudioRecord;
 
 import android.util.Log;
 
@@ -11,7 +11,8 @@ import java.io.IOException;
 public class PcmToWave {
     private static final String TAG = "MainActivity";
 
-    PcmToWave(final File rawFile1, final File rawFile2, final File waveFile, int time, int RECORDER_SAMPLERATE, int bytePerSec) throws IOException {
+    PcmToWave(final File rawFile1, final File rawFile2, final File waveFile, int time, int RECORDER_SAMPLERATE,
+            int bytePerSec) throws IOException {
         Log.d(TAG, rawFile1.getName());
         Log.d(TAG, rawFile2.getName());
         int size1 = (int) rawFile1.length();
@@ -41,8 +42,8 @@ public class PcmToWave {
             writeString(output, "data"); // subchunk 2 id
             writeInt(output, totalSize); // subchunk 2 size
 
-            //파일 1과 파일 2를 합쳐서 모두 저장할 경우도 있지만 MAX_SIZE 이상으로 time을 설정할수 없기때문에 무시함
-            if (size2 >= bytePerSec * time || size1 == 0) { //파일 2만 사용할 경유
+            // 파일 1과 파일 2를 합쳐서 모두 저장할 경우도 있지만 MAX_SIZE 이상으로 time을 설정할수 없기때문에 무시함
+            if (size2 >= bytePerSec * time || size1 == 0) { // 파일 2만 사용할 경유
                 output.write(file2ToBytes(rawFile2, size2, totalSize));
             } else { // 파일 12 둘다 사용할 경우
                 output.write(fullyReadFileToBytes(rawFile1, rawFile2, size1, size2, totalSize));
