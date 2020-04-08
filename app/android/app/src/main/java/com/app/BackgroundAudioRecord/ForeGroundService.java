@@ -46,7 +46,7 @@ public class ForeGroundService extends Service {
         startForeground(1, notification);
         // 쓰레드 동작 시작
         RM = new RecordManager(this);
-        // RM.onRecord();
+        RM.onRecord();
 
         return START_NOT_STICKY;
     }

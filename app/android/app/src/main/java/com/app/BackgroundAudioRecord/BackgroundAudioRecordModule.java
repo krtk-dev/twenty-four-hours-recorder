@@ -25,9 +25,6 @@ public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startService() {
-        // if (mBackgroundAudioRecord != null) {
-        // return;
-        // }
         mBackgroundAudioRecord = new BackgroundAudioRecord();
         Log.d("ASDF", "startService");
         mBackgroundAudioRecord.startService(reactContext);
@@ -39,17 +36,11 @@ public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startRecording() {
-        mBackgroundAudioRecord.startRecording();
-    }
+    public void saveRecording(int time, String name)  {
+        try {
+            mBackgroundAudioRecord.saveRecording(time, name, reactContext);
+        } catch (NoSuchMethodException e) {
 
-    @ReactMethod
-    public void stopRecording() {
-        mBackgroundAudioRecord.stopRecording();
-    }
-
-    @ReactMethod
-    public void saveRecording() {
-        mBackgroundAudioRecord.saveRecording();
+        }
     }
 }

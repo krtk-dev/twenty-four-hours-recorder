@@ -17,7 +17,7 @@ import java.io.IOException;
 public class RecordManager {
 
     private static final String TAG = "MainActivity";
-    private static final long MAX_TIME = 3600;
+    private static final long MAX_TIME = 1800;
     private File ROOT_FILE;
     private String FILE_PATH_1;
     private String FILE_PATH_2;
@@ -61,7 +61,7 @@ public class RecordManager {
             ROOT_FILE = Environment.getExternalStorageDirectory();
             Log.d(TAG, "SD카드 마운트 O");
         }
-        SAVE_PATH = ROOT_FILE.getAbsolutePath() + "/24hourRecordSave";
+        SAVE_PATH = ROOT_FILE.getAbsolutePath() + "/24hourRecord";
         FILE_PATH_1 = SAVE_PATH + "/24hourRecordTemp1.pcm";
         FILE_PATH_2 = SAVE_PATH + "/24hourRecordTemp2.pcm";
         File dir = new File(SAVE_PATH);
@@ -179,12 +179,12 @@ public class RecordManager {
         fos = null;
     }
 
-    public void onSave() {
+    public void onSave(int time, String name) {
         Log.d(TAG, "save recording");
         long date = System.currentTimeMillis();
         File f1 = new File(currentPath == FILE_PATH_1 ? FILE_PATH_2 : FILE_PATH_1); // The location of your PCM file
         File f2 = new File(currentPath == FILE_PATH_1 ? FILE_PATH_1 : FILE_PATH_2);
-        lastSavePath = SAVE_PATH + "/" + "recordFile" + date + ".wav";
+        lastSavePath = SAVE_PATH + "/" + name + ".wav";
         File saveFile = new File(lastSavePath); // The location where you want your WAV file
         File savePath = new File(SAVE_PATH);
 
@@ -193,20 +193,12 @@ public class RecordManager {
         }
         try {
             // time은 MAX_time 보다 작아야함
-            new PcmToWave(f1, f2, saveFile, 3600, mSampleRate, bytePerSec);
+            new PcmToWave(f1, f2, saveFile, time, mSampleRate, bytePerSec);
             Log.d(TAG, "SAVE SUCCESS");
         } catch (IOException e) {
             Log.d(TAG, e.toString());
             e.printStackTrace();
         }
-    }
-
-    public void onPlaySound() {
-        SP.Play(lastSavePath, mBufferSize, mSampleRate, mChannelCount, mAudioFormat);
-    }
-
-    public void onStopSound() {
-        SP.Stop();
     }
 
     public void ErrorAndStop() {

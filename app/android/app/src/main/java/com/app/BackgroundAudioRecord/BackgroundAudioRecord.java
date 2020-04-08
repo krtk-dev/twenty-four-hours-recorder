@@ -2,6 +2,7 @@ package com.app.BackgroundAudioRecord;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,33 +16,35 @@ import androidx.core.content.ContextCompat;
 
 public class BackgroundAudioRecord {
     public void startService(Context context) {
+        if(isLaunchingService(context)) return;
         Intent serviceIntent = new Intent(context, ForeGroundService.class);
         serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
         ContextCompat.startForegroundService(context, serviceIntent);
     }
 
     public void stopService(Context context) {
-         Intent serviceIntent = new Intent(context, ForeGroundService.class);
-         context.stopService(serviceIntent);
+        if(!isLaunchingService(context)) return;
+        Intent serviceIntent = new Intent(context, ForeGroundService.class);
+        context.stopService(serviceIntent);
     }
 
-    public void startRecording() {
-        ForeGroundService.RM.onRecord();
+    public void saveRecording(int time, String name, Context context) throws NoSuchMethodException {
+        if(!isLaunchingService(context)){
+            throw new NoSuchMethodException("Service not Running");
+        }
+        ForeGroundService.RM.onSave(time, name);
     }
 
-    public void stopRecording() {
-        ForeGroundService.RM.onStop();
-    }
+    public Boolean isLaunchingService(Context mContext) {
 
-    public void playSound() {
-        ForeGroundService.RM.onPlaySound();
-    }
+        ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
-    public void stopSound() {
-        ForeGroundService.RM.onStopSound();
-    }
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (ForeGroundService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
 
-    public void saveRecording() {
-        ForeGroundService.RM.onSave();
+        return false;
     }
 }

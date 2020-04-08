@@ -3,9 +3,7 @@ import { NativeModules } from 'react-native';
 interface BackgroundAudioRecord {
     startService: () => void;
     stopService: () => void;
-    startRecording: () => void;
-    stopRecording: () => void;
-    saveRecording: () => void;
+    saveRecording: (time: number, name: string) => void;
 }
 
 const BackgroundAudioRecord: BackgroundAudioRecord = NativeModules.BackgroundAudioRecord;

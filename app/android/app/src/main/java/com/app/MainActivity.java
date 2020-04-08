@@ -13,25 +13,14 @@ import androidx.core.content.ContextCompat;
 
 public class MainActivity extends ReactActivity {
 
-  private BackgroundAudioRecord mBackgroundAudioRecord;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-//    mBackgroundAudioRecord = new BackgroundAudioRecord();
-    Log.d("ASDF", "onCreate");
-//    mBackgroundAudioRecord.startService(getApplicationContext());
-//    startService();
+    Log.d("ASDF", "onCreated");
   }
 
   @Override
   protected String getMainComponentName() {
     return "app";
-  }
-
-  public void startService() {
-    Intent serviceIntent = new Intent(this, ForeGroundService.class);
-    serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
-    ContextCompat.startForegroundService(this, serviceIntent);
   }
 }
