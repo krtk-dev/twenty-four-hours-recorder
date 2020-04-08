@@ -179,7 +179,7 @@ public class RecordManager {
         fos = null;
     }
 
-    public void onSave(int time, String name) {
+    public String onSave(int time, String name) {
         Log.d(TAG, "save recording");
         long date = System.currentTimeMillis();
         File f1 = new File(currentPath == FILE_PATH_1 ? FILE_PATH_2 : FILE_PATH_1); // The location of your PCM file
@@ -195,9 +195,11 @@ public class RecordManager {
             // time은 MAX_time 보다 작아야함
             new PcmToWave(f1, f2, saveFile, time, mSampleRate, bytePerSec);
             Log.d(TAG, "SAVE SUCCESS");
+            return "success";
         } catch (IOException e) {
             Log.d(TAG, e.toString());
             e.printStackTrace();
+            return "fail";
         }
     }
 

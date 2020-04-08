@@ -28,11 +28,11 @@ public class BackgroundAudioRecord {
         context.stopService(serviceIntent);
     }
 
-    public void saveRecording(int time, String name, Context context) throws NoSuchMethodException {
+    public String saveRecording(int time, String name, Context context) throws NoSuchMethodException {
         if(!isLaunchingService(context)){
             throw new NoSuchMethodException("Service not Running");
         }
-        ForeGroundService.RM.onSave(time, name);
+        return ForeGroundService.RM.onSave(time, name);
     }
 
     public Boolean isLaunchingService(Context mContext) {

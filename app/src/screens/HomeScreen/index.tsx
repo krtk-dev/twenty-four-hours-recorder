@@ -9,9 +9,6 @@ const HomeScreen = () => {
     useEffect(() => {
         console.log("load")
         BackgroundAudioRecord.startService()
-        setTimeout(() => {
-            BackgroundAudioRecord.stopService()
-        }, 1000);
     }, [])
 
     return (
@@ -19,7 +16,7 @@ const HomeScreen = () => {
             <TouchableWithoutFeedback
                 onPress={() => {
                     try {
-                        BackgroundAudioRecord.saveRecording(300, "Recording-" + Date.now())
+                        BackgroundAudioRecord.saveRecording(300, "Recording-" + Date.now(), (state: string) => console.log(state))
                     } catch (error) {
 
                     }

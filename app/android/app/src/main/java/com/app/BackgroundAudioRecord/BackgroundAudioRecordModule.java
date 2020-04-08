@@ -36,11 +36,11 @@ public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void saveRecording(int time, String name)  {
+    public void saveRecording(int time, String name, Callback cb)  {
         try {
-            mBackgroundAudioRecord.saveRecording(time, name, reactContext);
+            cb.invoke(mBackgroundAudioRecord.saveRecording(time, name, reactContext));
         } catch (NoSuchMethodException e) {
-
+            cb.invoke("noService");
         }
     }
 }
