@@ -1,1 +1,3 @@
 app/android/app/google-services.json
+app/firebase.json
+app/secret.ts
