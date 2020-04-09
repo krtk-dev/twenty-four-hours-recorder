@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native'
 import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord'
-import { useSetting } from '../../redux/Setting'
 import { BaseButton } from 'react-native-gesture-handler'
+import moment from 'moment'
 
 const HomeScreen = () => {
     useEffect(() => {
@@ -15,7 +15,7 @@ const HomeScreen = () => {
             <BaseButton
                 onPress={() => {
                     try {
-                        BackgroundAudioRecord.saveRecording(300, "Recording-" + Date.now(), (state: string) => console.log(state))
+                        BackgroundAudioRecord.saveRecording(300, "Recording-" + moment().format("YYYY-MM-DD-h:mm:ss"), (state: string) => console.log(state))
                     } catch (error) {
 
                     }
@@ -37,7 +37,7 @@ const HomeScreen = () => {
             <TouchableWithoutFeedback
                 onPress={() => {
                     try {
-                        BackgroundAudioRecord.saveRecording(180, "Recording-" + Date.now(), (state: string) => console.log(state))
+                        BackgroundAudioRecord.saveRecording(1800, "Recording-" + Date.now(), (state: string) => console.log(state))
                     } catch (error) {
 
                     }
