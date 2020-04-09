@@ -1005,6 +1005,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/admob/-/admob-6.4.0.tgz#557dcf8612a6cd3fdf68b6dfeddcf7d8e3ce6e10"
   integrity sha512-myn/rrEo5n0y0d+J65MFES97OcI1N3wqZFdBofqWm8NFXeHVm6pIYrSKUvGUv2q2ODiFiTRch5VT0gB0YvWJxg==
 
+"@react-native-firebase/analytics@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-6.4.0.tgz#e8ba193e90fffa013675ab42471a9bce8bcac357"
+  integrity sha512-Yx/0uKVkqXvi5OyJgAtOED18j0cSz1Te1jR5pSVV3CSp3fj3d3b4t29vvEU0i5SRO2p9xSychTfNetl6mCluHw==
+
 "@react-native-firebase/app-types@6.4.0":
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.4.0.tgz#f3d8c1d63f5bc5f6d5f9683caa428b189a968839"
