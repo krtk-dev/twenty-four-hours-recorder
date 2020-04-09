@@ -1,4 +1,4 @@
-package com.app.BackgroundAudioRecord;
+package com.koreanthinker.twentyfourhourrecorder.BackgroundAudioRecord;
 
 import android.util.Log;
 
@@ -36,7 +36,7 @@ public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void saveRecording(int time, String name, Callback cb)  {
+    public void saveRecording(int time, String name, Callback cb) {
         try {
             cb.invoke(mBackgroundAudioRecord.saveRecording(time, name, reactContext));
         } catch (NoSuchMethodException e) {

@@ -1,4 +1,4 @@
-package com.app.BackgroundAudioRecord;
+package com.koreanthinker.twentyfourhourrecorder.BackgroundAudioRecord;
 
 import android.util.Log;
 
