@@ -37,7 +37,7 @@ public class PcmToWave {
             writeShort(output, (short) 2); // number of channels
             writeInt(output, RECORDER_SAMPLERATE); // sample rate
             writeInt(output, bytePerSec); // byte rate
-            writeShort(output, (short) (RECORDER_SAMPLERATE * 2)); // block align
+            writeShort(output, (short) (RECORDER_SAMPLERATE * 2)); // block align -> sampleRate * channel
             writeShort(output, (short) 16); // bits per sample
             writeString(output, "data"); // subchunk 2 id
             writeInt(output, totalSize); // subchunk 2 size

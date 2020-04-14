@@ -10,7 +10,7 @@ const Footer = () => {
             <NeomorphBox
                 swapShadowLevel
                 style={{
-                    shadowRadius: 10,
+                    shadowRadius: 4,
                     borderRadius: 25,
                     backgroundColor: COLOR1,
                     width: 50,

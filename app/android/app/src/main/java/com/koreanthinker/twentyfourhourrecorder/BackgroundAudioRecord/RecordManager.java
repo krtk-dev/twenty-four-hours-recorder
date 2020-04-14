@@ -17,7 +17,7 @@ import java.io.IOException;
 public class RecordManager {
 
     private static final String TAG = "MainActivity";
-    private static final long MAX_TIME = 1800;
+    private static final long MAX_TIME = 1800; //30초
     private File ROOT_FILE;
     private String FILE_PATH_1;
     private String FILE_PATH_2;
@@ -126,7 +126,7 @@ public class RecordManager {
             }
             // 소리 읽고 pcm에 쓰기
             int ret = mAudioRecord.read(readData, 0, mBufferSize);
-            Log.d(TAG, "" + ret + " : " + mBufferSize + " : " + currentFileByte);
+//            Log.d(TAG, "" + ret + " : " + mBufferSize + " : " + currentFileByte);
             try {
                 fos.write(readData, 0, mBufferSize);
                 currentFileByte += ret;
@@ -136,7 +136,6 @@ public class RecordManager {
                 Log.d(TAG, "THREAD ERROR");
                 ErrorAndStop();
             }
-
         }
 
         mAudioRecord.stop();

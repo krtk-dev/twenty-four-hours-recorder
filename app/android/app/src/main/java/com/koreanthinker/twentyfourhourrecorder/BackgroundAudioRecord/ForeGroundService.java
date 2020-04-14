@@ -34,12 +34,15 @@ public class ForeGroundService extends Service {
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0); // activity 유지
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID).setContentText("Save last 10 min")
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentText("Save last 10 min")
                 .addAction(R.mipmap.ic_launcher, "save", pendingIntent)
-                .addAction(R.mipmap.ic_launcher, "other", pendingIntent).setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pendingIntent).build();
+                .addAction(R.mipmap.ic_launcher, "other", pendingIntent)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .build();
 
-        startForeground(1, notification);
+        startForeground(999, notification);
         // 쓰레드 동작 시작
         RM = new RecordManager(this);
         RM.onRecord();
