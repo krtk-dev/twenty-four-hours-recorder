@@ -39,13 +39,11 @@ const Clock = () => {
         for (let i = 0; i < 90; i++) {
             _data.push(i)
         }
-        console.log(_data)
         setData(_data)
     }, [])
 
     return (
         <View style={{ width: CLOCK_WIDTH, height: CLOCK_WIDTH, alignItems: 'center', justifyContent: 'center' }} >
-
             <CircleButton style={{
                 position: 'absolute',
                 translateY: -SAVE_BUTTON_DURATION
@@ -82,7 +80,6 @@ const Clock = () => {
                 <Text style={{ color: COLOR2, fontSize: 16 }} >5</Text>
             </CircleButton>
             <NeomorphBox
-                swapShadowLevel
                 style={{
                     shadowRadius: 7,
                     borderRadius: 200,
@@ -94,10 +91,9 @@ const Clock = () => {
                 }}
             >
                 <NeomorphBox
-                    swapShadowLevel
                     inner
                     style={{
-                        shadowRadius: 3,
+                        shadowRadius: 7,
                         borderRadius: 200,
                         width: CLOCK_WIDTH - 20,
                         height: CLOCK_WIDTH - 20,
@@ -107,7 +103,6 @@ const Clock = () => {
                     }}
                 >
                     <NeomorphBox
-                        swapShadowLevel
                         style={{
                             shadowRadius: 7,
                             borderRadius: 200,
