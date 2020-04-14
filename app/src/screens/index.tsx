@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, RefObject } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import analytics from '@react-native-firebase/analytics';
 
 
 import HomeScreen from './HomeScreen';
+import SettingScreen from './SettingScreen';
+import { COLOR1 } from '../components/style';
 
 
 const Stack = createStackNavigator();
@@ -40,11 +42,17 @@ const AppContainer = () => {
             }}
         >
             <Stack.Navigator
+                initialRouteName='Home'
                 screenOptions={{
-                    headerShown: false
+                    headerShown: false,
+                    cardStyle: {
+                        flex: 1,
+                        backgroundColor: COLOR1
+                    }
                 }}
             >
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Setting" component={SettingScreen} />
             </Stack.Navigator>
         </NavigationContainer >
     )

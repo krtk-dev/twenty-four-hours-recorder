@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './src/redux';
 import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
+import firebase from '@react-native-firebase/app'
+import { StatusBar } from 'react-native';
+import { COLOR1 } from './src/components/style';
 
 
 const { store, persistor } = configureStore();
@@ -23,14 +26,20 @@ const App = () => {
     }
   }
 
+  const firebaseInit = () => {
+    console.log(firebase.apps)
+  }
+
   useEffect(() => {
     adsInit()
+    firebaseInit()
   }, [])
 
   return (
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <StatusBar backgroundColor={COLOR1} />
           <AppContainer />
         </PersistGate>
       </Provider>

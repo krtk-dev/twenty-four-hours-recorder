@@ -1,7 +1,7 @@
 import { SettingAction, SettingState } from '.'
 
 const initialState: SettingState = {
-    quility: { sampleRate: 16000, bit: 16, channer: 1 }
+    quility: { sampleRate: 16000, bit: 16, channer: 2 }
 };
 
 function reducer(state: SettingState = initialState, action: SettingAction): SettingState {
