@@ -6,7 +6,10 @@ import CircleButton from '../../components/Button/CircleButton';
 import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord'
 import moment from 'moment';
 
-const AnimatedNeomorphBox = Animated.createAnimatedComponent(NeomorphBox)
+import Svg, { Line } from 'react-native-svg';
+
+
+const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 
 const CLOCK_WIDTH = 200
 const SAVE_BUTTON_DURATION = 144
@@ -24,11 +27,20 @@ const Clock = () => {
         Animated.sequence([
             Animated.timing(animation, {
                 toValue: 1,
-                duration: 1800 * 1000,
+                duration: 6 * 1000,
                 easing: Easing.linear,
                 useNativeDriver: true
             })
         ]).start(() => runAnimation())
+    }
+
+    const changeValue = (index: number) => {
+        setTimeout(() => {
+            const d = data.filter((_, i) => i == index ? Math.random() : _)
+            setData(d)
+            changeValue(index === 90 ? 0 : index + 1)
+            console.log(index)
+        }, 1000)
     }
 
     useEffect(() => {
@@ -36,15 +48,16 @@ const Clock = () => {
         // BackgroundAudioRecord.startService()
         // BackgroundAudioRecord.stopService()
         const _data: number[] = []
-        for (let i = 0; i < 90; i++) {
-            _data.push(i)
+        for (let i = 0; i < 180; i++) {
+            _data.push(Math.random())
         }
         setData(_data)
+        // changeValue(0)
     }, [])
 
     return (
         <View style={{ width: CLOCK_WIDTH, height: CLOCK_WIDTH, alignItems: 'center', justifyContent: 'center' }} >
-            <CircleButton style={{
+            {/* <CircleButton style={{
                 position: 'absolute',
                 translateY: -SAVE_BUTTON_DURATION
             }}
@@ -78,7 +91,7 @@ const Clock = () => {
                 }}
             >
                 <Text style={{ color: COLOR2, fontSize: 16 }} >5</Text>
-            </CircleButton>
+            </CircleButton> */}
             <NeomorphBox
                 style={{
                     shadowRadius: 7,
@@ -115,7 +128,7 @@ const Clock = () => {
                     >
 
                         <Text style={{ color: COLOR2, fontSize: 14 }} >RECORDING</Text>
-                        <Animated.View
+                        <View
                             style={{
                                 position: 'absolute',
                                 width: CLOCK_WIDTH - 20,
@@ -123,30 +136,31 @@ const Clock = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: 200,
-                                transform: [{
-                                    rotate: animation.interpolate({
-                                        inputRange: [0, 1],
-                                        outputRange: ['0deg', '360deg']
-                                    })
-                                }]
                             }} >
-                            {data.map((value, index) => {
-                                const height = value / 180 * 14 + 1
-                                return <View
-                                    key={index}
-                                    style={{
-                                        width: 1,
-                                        height,
-                                        backgroundColor: '#fff',
-                                        position: 'absolute',
-                                        translateX: Math.sin(Math.PI * 2 * index / data.length) * ((CLOCK_WIDTH - 60) / 2 - height / 2),
-                                        translateY: -Math.cos(Math.PI * 2 * index / data.length) * ((CLOCK_WIDTH - 60) / 2 - height / 2),
-                                        transform: [{ rotate: (360 * index / data.length).toString() + "deg" }]
-                                    }}
-                                />
-                            }
-                            )}
-                        </Animated.View>
+                            <AnimatedSvg
+                                width={CLOCK_WIDTH - 20}
+                                height={CLOCK_WIDTH - 20}
+                                rotation={animation.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0, 360]
+                                })}
+
+                            >
+                                {data.map((value, index) => {
+                                    const height = value * 14 + 1; //15=max min=1 heigth
+                                    const v = ((CLOCK_WIDTH - 60) / 2 - height / 2)
+                                    return <Line
+                                        key={index}
+                                        x1={(CLOCK_WIDTH - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * v)}
+                                        y1={(CLOCK_WIDTH - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * v)}
+                                        x2={(CLOCK_WIDTH - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * (v + height))}
+                                        y2={(CLOCK_WIDTH - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * (v + height))}
+                                        stroke="#fff"
+                                        strokeWidth="1"
+                                    />
+                                })}
+                            </AnimatedSvg>
+                        </View>
                     </NeomorphBox>
                 </NeomorphBox>
             </NeomorphBox>

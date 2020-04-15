@@ -6,6 +6,8 @@ import { COLOR1 } from '../../components/style'
 import Clock from './Clock'
 import Header from './Header'
 import Footer from './Footer'
+import { NeomorphBox } from 'react-native-neomorph-shadows'
+import { Text } from 'react-native-svg'
 
 
 const HomeScreen = () => {
@@ -16,6 +18,20 @@ const HomeScreen = () => {
             </View>
             <View style={styles.clockContainer} >
                 <Clock />
+                <NeomorphBox
+                    style={{
+                        height: 70,
+                        width: 300,
+                        shadowRadius: 9,
+                        borderRadius: 20,
+                        backgroundColor: COLOR1,
+                        position: 'absolute',
+                        translateY: 200
+                    }}
+                    inner
+                >
+                    <Text>hi</Text>
+                </NeomorphBox>
             </View>
             <View style={styles.footerContainer} >
                 <Footer />
