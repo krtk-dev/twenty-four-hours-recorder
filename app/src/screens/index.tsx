@@ -7,6 +7,7 @@ import analytics from '@react-native-firebase/analytics';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
 import { COLOR1 } from '../components/style';
+import RecordHistoryScreen from './RecordHistoryScreen';
 
 
 const Stack = createStackNavigator();
@@ -53,6 +54,7 @@ const AppContainer = () => {
             >
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Setting" component={SettingScreen} />
+                <Stack.Screen name="RecordHistory" component={RecordHistoryScreen} />
             </Stack.Navigator>
         </NavigationContainer >
     )
