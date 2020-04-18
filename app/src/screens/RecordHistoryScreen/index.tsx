@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import DefaultHeader from '../../components/Header/DefaultHeader'
 import Body from './Body'
 
 
 const RecordHistoryScreen = () => {
+
     return (
         <View>
             <DefaultHeader

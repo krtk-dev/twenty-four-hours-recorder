@@ -1,31 +1,40 @@
-import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, FlatList, NativeModules } from 'react-native'
 import RecordingsCrad from '../../components/Card/RecordingsCrad'
+import RNFS from 'react-native-fs'
+import moment from 'moment'
 
-const data = [
-    {
-        name: "Recording 1",
-        date: "2019-04-14 04:15",
-        audioLength: "00:30"
-    },
-    {
-        name: "Recording 1",
-        date: "2019-04-14 04:15",
-        audioLength: "00:30"
-    },
-    {
-        name: "Recording 1",
-        date: "2019-04-14 04:15",
-        audioLength: "00:30"
-    },
-    {
-        name: "Recording 1",
-        date: "2019-04-14 04:15",
-        audioLength: "00:30"
-    }
-]
+interface data {
+    name: string;
+    date: string;
+    audioLength: string;
+}
 
 const Body = () => {
+
+    const [data, setData] = useState<data[]>([])
+
+    const getFile = async () => {
+        const files = await RNFS.readDir('/storage/emulated/0/24hourRecord')
+        const ls: data[] = []
+        console.log(files[0])
+        for (const i in files) {
+            if (files[i].name.includes(".wav")) {
+                ls.push({
+                    name: files[i].name.split('.')[0],
+                    audioLength: '00:30',
+                    date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm')
+                })
+            }
+        }
+        setData(ls)
+
+    }
+
+    useEffect(() => {
+        getFile()
+    }, [])
+
     return (
         <FlatList
             overScrollMode="never"
