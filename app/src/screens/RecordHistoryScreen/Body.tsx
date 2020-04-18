@@ -8,11 +8,13 @@ interface data {
     name: string;
     date: string;
     audioLength: string;
+    path: string;
 }
 
 const Body = () => {
 
     const [data, setData] = useState<data[]>([])
+    const [playIndex, setPlayIndex] = useState(-1)
 
     const getFile = async () => {
         const files = await RNFS.readDir('/storage/emulated/0/24hourRecord')
@@ -22,25 +24,36 @@ const Body = () => {
             if (files[i].name.includes(".wav")) {
                 ls.push({
                     name: files[i].name.split('.')[0],
-                    audioLength: '00:30',
-                    date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm')
+                    audioLength: files[i].size,
+                    date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm'),
+                    path: files[i].path
                 })
             }
         }
         setData(ls)
-
     }
 
     useEffect(() => {
         getFile()
     }, [])
 
+    const onRecordingCardClick = (name: string) => {
+        for (const i in data) {
+            if (data[i].name === name) {
+                setPlayIndex(parseInt(i))
+                return
+            }
+        }
+    }
+
     return (
         <FlatList
             overScrollMode="never"
             data={data}
-            renderItem={({ item }) => <RecordingsCrad
+            renderItem={({ item, index }) => <RecordingsCrad
                 {...item}
+                onPress={onRecordingCardClick}
+                detail={index == playIndex}
             />}
             keyExtractor={(_, index) => index.toString()}
         />
