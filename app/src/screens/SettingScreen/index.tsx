@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import Header from './Header'
+import Header from '../../components/Header/DefaultHeader'
 import { InteractionTab, DeveloperTab, QuilityTab, RecordingLocationTab } from './Tabs'
 
 const SettingScreen = () => {
@@ -10,7 +10,9 @@ const SettingScreen = () => {
             showsVerticalScrollIndicator={false}
             overScrollMode='never'
         >
-            <Header />
+            <Header
+                title="SETTING"
+            />
             <QuilityTab />
             <RecordingLocationTab />
             <InteractionTab />

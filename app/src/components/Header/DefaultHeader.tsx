@@ -1,16 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native'
-import { COLOR1 } from '../../components/style'
+import { COLOR1 } from '../style'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { useNavigation } from '@react-navigation/native'
 
-const Header = () => {
+interface DefaultHeaderProps {
+    title: string;
+}
+
+const DefaultHeader: React.FC<DefaultHeaderProps> = ({ title }) => {
 
     const { goBack } = useNavigation()
 
     return (
         <View style={styles.container} >
-            <Text style={styles.title}>SETTING</Text>
+            <Text style={styles.title}>{title}</Text>
             <TouchableWithoutFeedback
                 onPress={goBack}
             >
@@ -20,7 +24,7 @@ const Header = () => {
     )
 }
 
-export default Header
+export default DefaultHeader
 
 const styles = StyleSheet.create({
     container: {

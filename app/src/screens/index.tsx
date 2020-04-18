@@ -43,7 +43,7 @@ const AppContainer = () => {
             }}
         >
             <Stack.Navigator
-                initialRouteName='Home'
+                initialRouteName='RecordHistory'
                 screenOptions={{
                     headerShown: false,
                     cardStyle: {

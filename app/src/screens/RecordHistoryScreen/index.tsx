@@ -1,10 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import DefaultHeader from '../../components/Header/DefaultHeader'
+import Body from './Body'
+
 
 const RecordHistoryScreen = () => {
     return (
         <View>
-            <Text></Text>
+            <DefaultHeader
+                title='RECORDINGS'
+            />
+            <Body />
         </View>
     )
 }
