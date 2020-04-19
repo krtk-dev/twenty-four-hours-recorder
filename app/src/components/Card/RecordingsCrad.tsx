@@ -8,6 +8,8 @@ import PauseIcon from '../Svg/PauseIcon'
 import Sound from 'react-native-sound'
 import Slider from '@react-native-community/slider';
 import second2RecordingsFormat from '../Generator/second2RecordingsFormat'
+import Menu, { MenuItem } from 'react-native-material-menu';
+import Dialog from "react-native-dialog";
 
 
 const AnimatedNeomorphBox = Animated.createAnimatedComponent(NeomorphBox)
@@ -15,10 +17,11 @@ const AnimatedNeomorphBox = Animated.createAnimatedComponent(NeomorphBox)
 interface RecordingsCradProps {
     name: string;
     date: string;
-    audioLength: string;
+    audioDuration: number;
     path: string;
     detail: boolean;
     onPress: (name: string) => void;
+    onDeleteFile: (path: string) => Promise<void>;
 }
 
 const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
@@ -30,6 +33,9 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
 
     const [animation] = useState(new Animated.Value(0))
     const [detailUiOn, setDetailUiOn] = useState(false)
+    const [deleteDialog, setDeleteDialog] = useState(false)
+
+    const menuRef = useRef<Menu>(null)
 
     useEffect(() => {
         const timeout = setInterval(() => { //100ms 마다 시간 조회
@@ -74,6 +80,10 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
         try {
             sound.current?.stop()
             sound.current?.release()
+            sound.current = undefined
+            setDuration(0)
+            setPlayState("paused")
+            setPlaySeconds(0)
         } catch (error) {
             console.log(error)
         }
@@ -111,83 +121,124 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
         }
     }
 
-    const onOption = () => {
+    const onShare = () => {
+        menuRef.current && menuRef.current.hide()
+    }
 
+    const onRename = () => {
+        menuRef.current && menuRef.current.hide()
+    }
+
+    const onDelete = async () => {
+        menuRef.current && menuRef.current.hide()
+        setDeleteDialog(false)
+        props.onDeleteFile(props.path)
+    }
+
+    const onDetail = () => {
+        menuRef.current && menuRef.current.hide()
     }
 
     return (
-        <TouchableWithoutFeedback
-            onPress={() => props.onPress(props.name)}
-        >
-            <View>
-                <AnimatedNeomorphBox
-                    inner
-                    style={{
-                        height: animation.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [70, 160]
-                        }),
-                        width: WIDTH - 20,
-                        shadowRadius: animation.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [0, 10]
-                        }),
-                        borderRadius: 20,
-                        backgroundColor: COLOR1,
-                        alignSelf: 'center'
-                    }}
-                >
-                    <View style={styles.infoContainer} >
-                        <View style={{ maxWidth: WIDTH - 140 }} >
-                            <Text style={styles.name} numberOfLines={1} >{props.name}</Text>
-                            <Text style={styles.date} >{props.date}</Text>
-                        </View>
-                        <Text style={styles.audioLength} >{props.audioLength}</Text>
-                    </View>
-                    {detailUiOn && <Animated.View
-                        style={{ opacity: animation }}
+        <>
+            <TouchableWithoutFeedback
+                onPress={() => props.onPress(props.name)}
+            >
+                <View>
+                    <AnimatedNeomorphBox
+                        inner
+                        style={{
+                            height: animation.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [70, 160]
+                            }),
+                            width: WIDTH - 20,
+                            shadowRadius: animation.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0, 10]
+                            }),
+                            borderRadius: 20,
+                            backgroundColor: COLOR1,
+                            alignSelf: 'center'
+                        }}
                     >
-                        <View style={styles.progressBarContainer} >
-                            <Slider
-                                style={styles.slider}
-                                thumbTintColor={COLOR2}
-                                maximumTrackTintColor='#fff'
-                                minimumTrackTintColor={COLOR2}
-                                maximumValue={duration}
-                                value={playSeconds}
-                                onValueChange={onSliderEditing}
-                            />
-                        </View>
-                        <View style={styles.menusContainer} >
-                            <View style={styles.menuComponentContainer} >
-                                <Text style={styles.menuCurrentTime}  >{second2RecordingsFormat(playSeconds)}</Text>
+                        <View style={styles.infoContainer} >
+                            <View style={{ maxWidth: WIDTH - 140 }} >
+                                <Text style={styles.name} numberOfLines={1} >{props.name}</Text>
+                                <Text style={styles.date} >{props.date}</Text>
                             </View>
-                            <TouchableWithoutFeedback onPress={() => {
-                                if (playState === 'paused') onPlay()
-                                else onPause()
-                            }}>
-                                <View style={styles.iconContainer} >
-                                    {playState === 'paused'
-                                        ?
-                                        <PlayIcon />
-                                        :
-                                        <PauseIcon />
-                                    }
-
+                            <Text style={styles.audioLength} >{second2RecordingsFormat(props.audioLength)}</Text>
+                        </View>
+                        {detailUiOn && <Animated.View
+                            style={{ opacity: animation }}
+                        >
+                            <View style={styles.progressBarContainer} >
+                                <Slider
+                                    style={styles.slider}
+                                    thumbTintColor={COLOR2}
+                                    maximumTrackTintColor='#fff'
+                                    minimumTrackTintColor={COLOR2}
+                                    maximumValue={duration}
+                                    value={playSeconds}
+                                    onValueChange={onSliderEditing}
+                                />
+                            </View>
+                            <View style={styles.menusContainer} >
+                                <View style={styles.menuComponentContainer} >
+                                    <Text style={styles.menuCurrentTime}  >{second2RecordingsFormat(playSeconds)}</Text>
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <View style={styles.menuComponentContainer} >
-                                <TouchableWithoutFeedback onPress={onOption}>
-                                    <View>
-                                        <MenuIcon />
+                                <TouchableWithoutFeedback onPress={() => {
+                                    if (playState === 'paused') onPlay()
+                                    else onPause()
+                                }}>
+                                    <View style={styles.iconContainer} >
+                                        {playState === 'paused'
+                                            ?
+                                            <PlayIcon />
+                                            :
+                                            <PauseIcon />
+                                        }
+
                                     </View>
                                 </TouchableWithoutFeedback>
+                                <View style={styles.menuComponentContainer} >
+                                    <Menu
+                                        style={{ backgroundColor: COLOR1 }}
+                                        ref={menuRef}
+                                        button={
+                                            <TouchableWithoutFeedback onPress={() => menuRef.current && menuRef.current.show()} >
+                                                <View style={styles.menuIconContainer} >
+                                                    <MenuIcon />
+                                                </View>
+                                            </TouchableWithoutFeedback>
+                                        }
+                                    >
+                                        <MenuItem onPress={onShare} textStyle={{ color: '#fff' }} >Share</MenuItem>
+                                        <MenuItem onPress={onRename} textStyle={{ color: '#fff' }} >Rename</MenuItem>
+                                        <MenuItem onPress={() => setDeleteDialog(true)} textStyle={{ color: '#fff' }} >Delete</MenuItem>
+                                        <MenuItem onPress={onDetail} textStyle={{ color: '#fff' }} >Detail</MenuItem>
+                                    </Menu>
+                                </View>
                             </View>
-                        </View>
-                    </Animated.View>}
-                </AnimatedNeomorphBox>
-            </View>
-        </TouchableWithoutFeedback>
+                        </Animated.View>}
+                    </AnimatedNeomorphBox>
+                </View>
+            </TouchableWithoutFeedback>
+            <Dialog.Container
+                visible={deleteDialog}
+                contentStyle={{ backgroundColor: COLOR1, elevation: 0 }}
+                onBackButtonPress={() => setDeleteDialog(false)}
+                onBackdropPress={() => setDeleteDialog(false)}
+
+            >
+                <Dialog.Title style={{ color: '#fff' }} >Recording delete</Dialog.Title>
+                <Dialog.Description style={{ color: '#fff' }} >
+                    Do you want to delete this recording? You cannot undo this action.
+                </Dialog.Description>
+                <Dialog.Button style={{ color: '#fff' }} onPress={() => setDeleteDialog(false)} label="Cancel" />
+                <Dialog.Button style={{ color: COLOR2 }} onPress={onDelete} label="Delete" />
+            </Dialog.Container>
+        </>
     )
 }
 
@@ -231,10 +282,16 @@ const styles = StyleSheet.create({
         opacity: 0.5
     },
     menuComponentContainer: {
-        width: 100,
+        width: 80,
         alignItems: 'center'
     },
     iconContainer: {
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    menuIconContainer: {
         width: 50,
         height: 50,
         alignItems: 'center',

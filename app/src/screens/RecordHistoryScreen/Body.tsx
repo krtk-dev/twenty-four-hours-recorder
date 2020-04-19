@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, FlatList, NativeModules } from 'react-native'
+import { StyleSheet, Text, View, FlatList, NativeModules, Alert } from 'react-native'
 import RecordingsCrad from '../../components/Card/RecordingsCrad'
 import RNFS from 'react-native-fs'
 import moment from 'moment'
+import removeFile from '../../components/Function/removeFile'
 
 interface data {
     name: string;
     date: string;
-    audioLength: string;
+    audioLength: number;
     path: string;
 }
 
@@ -23,7 +24,7 @@ const Body = () => {
             if (!files[i].name.includes(".pcm")) {
                 ls.push({
                     name: files[i].name.split('.')[0],
-                    audioLength: files[i].size,
+                    audioLength: parseInt(files[i].size),
                     date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm'),
                     path: files[i].path
                 })
@@ -45,6 +46,17 @@ const Body = () => {
         }
     }
 
+    const onDelteFile = async (path: string) => {
+        try {
+            await removeFile(path)
+            setData(data.filter((value) => value.path !== path))
+            setPlayIndex(-1)
+        } catch (error) {
+            Alert.alert("Delete error")
+        }
+
+    }
+
     return (
         <FlatList
             overScrollMode="never"
@@ -53,6 +65,7 @@ const Body = () => {
                 {...item}
                 onPress={onRecordingCardClick}
                 detail={index == playIndex}
+                onDeleteFile={onDelteFile}
             />}
             keyExtractor={(_, index) => index.toString()}
         />
