@@ -19,9 +19,8 @@ const Body = () => {
     const getFile = async () => {
         const files = await RNFS.readDir('/storage/emulated/0/24hourRecord')
         const ls: data[] = []
-        console.log(files[0])
         for (const i in files) {
-            if (files[i].name.includes(".wav")) {
+            if (!files[i].name.includes(".pcm")) {
                 ls.push({
                     name: files[i].name.split('.')[0],
                     audioLength: files[i].size,

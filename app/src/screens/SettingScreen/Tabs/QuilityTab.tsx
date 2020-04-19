@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native'
 import { quility } from '../../../redux/Setting/types'
 import { useSetting } from '../../../redux/Setting'
 import { BaseButton } from 'react-native-gesture-handler'
-import { DEFAULT_OPTION_BUTTON_HEIGHT } from '.'
+
 const QualityOptions: quility[] = [
     { sampleRate: 8000, bit: 16, channer: 2 },
     { sampleRate: 16000, bit: 16, channer: 2 },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     },
     optionButton: {
         width: '100%',
-        height: DEFAULT_OPTION_BUTTON_HEIGHT,
+        height: 36,
         paddingHorizontal: 20,
         justifyContent: 'center'
     },

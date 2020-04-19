@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     optionButton: {
         paddingHorizontal: 20,
         width: '100%',
-        height: DEFAULT_OPTION_BUTTON_HEIGHT,
+        height: 36,
         justifyContent: 'center'
     },
     option: {

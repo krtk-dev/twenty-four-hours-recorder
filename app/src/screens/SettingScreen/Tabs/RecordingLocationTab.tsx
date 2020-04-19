@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         justifyContent: 'center',
         width: '100%',
-        height: DEFAULT_OPTION_BUTTON_HEIGHT
+        height: 36
     },
     option: {
         fontSize: 14,
