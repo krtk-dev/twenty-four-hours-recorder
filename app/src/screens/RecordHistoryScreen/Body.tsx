@@ -4,11 +4,12 @@ import RecordingsCrad from '../../components/Card/RecordingsCrad'
 import RNFS from 'react-native-fs'
 import moment from 'moment'
 import removeFile from '../../components/Function/removeFile'
+import getWavDuration from '../../components/Function/getWavDuration'
 
 interface data {
     name: string;
     date: string;
-    audioLength: number;
+    audioDuration: number;
     path: string;
 }
 
@@ -21,10 +22,10 @@ const Body = () => {
         const files = await RNFS.readDir('/storage/emulated/0/24hourRecord')
         const ls: data[] = []
         for (const i in files) {
-            if (!files[i].name.includes(".pcm")) {
+            if (files[i].name.includes(".wav")) {
                 ls.push({
                     name: files[i].name.split('.')[0],
-                    audioLength: parseInt(files[i].size),
+                    audioDuration: await getWavDuration(files[i].path),
                     date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm'),
                     path: files[i].path
                 })

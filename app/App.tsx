@@ -26,13 +26,9 @@ const App = () => {
     }
   }
 
-  const firebaseInit = () => {
-    console.log(firebase.apps)
-  }
 
   useEffect(() => {
     adsInit()
-    firebaseInit()
   }, [])
 
   return (

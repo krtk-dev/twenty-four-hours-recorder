@@ -41,7 +41,6 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
         const timeout = setInterval(() => { //100ms 마다 시간 조회
             if (sound.current && sound.current.isLoaded()) {
                 sound.current.getCurrentTime((seconds, isPlaying) => {
-                    console.log(seconds)
                     setPlaySeconds(seconds)
                 })
             }
@@ -167,7 +166,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                                 <Text style={styles.name} numberOfLines={1} >{props.name}</Text>
                                 <Text style={styles.date} >{props.date}</Text>
                             </View>
-                            <Text style={styles.audioLength} >{second2RecordingsFormat(props.audioLength)}</Text>
+                            <Text style={styles.audioLength} >{second2RecordingsFormat(props.audioDuration)}</Text>
                         </View>
                         {detailUiOn && <Animated.View
                             style={{ opacity: animation }}
