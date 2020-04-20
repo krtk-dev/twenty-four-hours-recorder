@@ -10,22 +10,20 @@ import Slider from '@react-native-community/slider';
 import second2RecordingsFormat from '../Generator/second2RecordingsFormat'
 import Menu, { MenuItem } from 'react-native-material-menu';
 import Dialog from "react-native-dialog";
-
+import Share from 'react-native-share'
+import { AudioData } from '../../screens/RecordHistoryScreen/Body'
+import byteFormat from '../Generator/byteFormat'
 
 const AnimatedNeomorph = Animated.createAnimatedComponent(Neomorph)
 const ANIMATION_DURATION = 240
 
 interface RecordingsCradProps {
-    name: string;
-    date: string;
-    audioDuration: number;
-    path: string;
     detail: boolean;
     onPress: (name: string) => void;
     onDeleteFile: (path: string) => Promise<void>;
 }
 
-const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
+const RecordingsCrad: React.FC<RecordingsCradProps & AudioData> = ({ audioInfo, ...props }) => {
 
     const sound = useRef<Sound>()
     const [duration, setDuration] = useState(0)
@@ -35,6 +33,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
     const [animation] = useState(new Animated.Value(0))
     const [detailUiOn, setDetailUiOn] = useState(false)
     const [deleteDialog, setDeleteDialog] = useState(false)
+    const [detailDialog, setDetailDialog] = useState(false)
 
     const menuRef = useRef<Menu>(null)
 
@@ -123,6 +122,9 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
 
     const onShare = () => {
         menuRef.current && menuRef.current.hide()
+        Share.open({
+            url: `file://${props.path}`
+        })
     }
 
     const onRename = () => {
@@ -137,6 +139,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
 
     const onDetail = () => {
         menuRef.current && menuRef.current.hide()
+        setDetailDialog(true)
     }
 
     return (
@@ -168,7 +171,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                                 <Text style={styles.name} numberOfLines={1} >{props.name}</Text>
                                 <Text style={styles.date} >{props.date}</Text>
                             </View>
-                            <Text style={styles.audioLength} >{second2RecordingsFormat(props.audioDuration)}</Text>
+                            <Text style={styles.audioLength} >{second2RecordingsFormat(audioInfo.duration)}</Text>
                         </View>
                         {detailUiOn && <Animated.View
                             style={{ opacity: animation }}
@@ -215,7 +218,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                                         }
                                     >
                                         <MenuItem onPress={onShare} textStyle={{ color: '#fff' }} >Share</MenuItem>
-                                        <MenuItem onPress={onRename} textStyle={{ color: '#fff' }} >Rename</MenuItem>
+                                        {/* <MenuItem onPress={onRename} textStyle={{ color: '#fff' }} >Rename</MenuItem> */}
                                         <MenuItem onPress={() => setDeleteDialog(true)} textStyle={{ color: '#fff' }} >Delete</MenuItem>
                                         <MenuItem onPress={onDetail} textStyle={{ color: '#fff' }} >Detail</MenuItem>
                                     </Menu>
@@ -238,6 +241,24 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                 </Dialog.Description>
                 <Dialog.Button style={{ color: '#fff' }} onPress={() => setDeleteDialog(false)} label="Cancel" />
                 <Dialog.Button style={{ color: COLOR2 }} onPress={onDelete} label="Delete" />
+            </Dialog.Container>
+
+            <Dialog.Container
+                visible={detailDialog}
+                contentStyle={{ backgroundColor: COLOR1, elevation: 0 }}
+                onBackButtonPress={() => setDetailDialog(false)}
+                onBackdropPress={() => setDetailDialog(false)}
+
+            >
+                <Dialog.Title style={{ color: '#fff' }} >Recording detail</Dialog.Title>
+                <Dialog.Description style={{ color: '#fff' }} >{`File: ${props.name}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Date: ${props.date}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Size: ${byteFormat(audioInfo.size)}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Sample rate: ${audioInfo.sampleRate}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Channel: ${audioInfo.numChannel}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Bit per sample rate: ${audioInfo.bitPerSample}`}</Dialog.Description>
+
+                <Dialog.Button style={{ color: '#fff' }} onPress={() => setDetailDialog(false)} label="Close" />
             </Dialog.Container>
         </>
     )

@@ -4,30 +4,31 @@ import RecordingsCrad from '../../components/Card/RecordingsCrad'
 import RNFS from 'react-native-fs'
 import moment from 'moment'
 import removeFile from '../../components/Function/removeFile'
-import getWavDuration from '../../components/Function/getWavDuration'
+import getWavInfo, { AudioInfo } from '../../components/Function/getWavInfo'
 
-interface data {
+export interface AudioData {
     name: string;
     date: string;
-    audioDuration: number;
     path: string;
+    audioInfo: AudioInfo
 }
 
 const Body = () => {
 
-    const [data, setData] = useState<data[]>([])
+    const [data, setData] = useState<AudioData[]>([])
     const [playIndex, setPlayIndex] = useState(-1)
 
     const getFile = async () => {
         const files = await RNFS.readDir('/storage/emulated/0/24hourRecord')
-        const ls: data[] = []
+        const ls: AudioData[] = []
         for (const i in files) {
             if (files[i].name.includes(".wav")) {
+                const info = await getWavInfo(files[i].path)
                 ls.push({
                     name: files[i].name.split('.')[0],
-                    audioDuration: await getWavDuration(files[i].path),
                     date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm'),
-                    path: files[i].path
+                    path: files[i].path,
+                    audioInfo: info
                 })
             }
         }

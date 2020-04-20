@@ -1183,6 +1183,14 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
+"@types/react-native-share@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-share/-/react-native-share-3.1.0.tgz#06b3772257d77a8f56af05aa92729efaf6387069"
+  integrity sha512-qW4gLw04HPHMDDzosX34eSdCKQanncqy8RH4KJNittkpxc5MLBmosa0d/05AEAjPhnuzciw6UK+WHbZ/XcApOA==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-vector-icons@^6.4.5":
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.5.tgz#74cbfc564bd8435e43ad6728572a0e5b49c335d1"
@@ -5484,6 +5492,11 @@ react-native-screens@^2.4.0:
   dependencies:
     debounce "^1.2.0"
 
+react-native-share@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-3.2.0.tgz#030aa81e2c3ec1d5c7577d3435b6cb1ed304074f"
+  integrity sha512-dKdJV2WRjs5c1cQbhD8na2iJqBVGXWDjQbOpvY64JlTAC3f44L448NaJWxdkiDiToTdYgL1nMai1cmKGmNtD2w==
+
 react-native-sound@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.0.tgz#ad60b55ba8c6dc89917f381ad3713f2738de530f"
@@ -7065,3 +7078,8 @@ yargs@^14.2.0:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
+
+yarn@^1.22.4:
+  version "1.22.4"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.4.tgz#01c1197ca5b27f21edc8bc472cd4c8ce0e5a470e"
+  integrity sha512-oYM7hi/lIWm9bCoDMEWgffW8aiNZXCWeZ1/tGy0DWrN6vmzjCXIKu2Y21o8DYVBUtiktwKcNoxyGl/2iKLUNGA==
