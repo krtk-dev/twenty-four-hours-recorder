@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableWithoutFeedback, StyleProp, ViewStyle } from 'react-native'
-import { NeomorphBox } from 'react-native-neomorph-shadows';
+import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle } from 'react-native'
+import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1 } from '../../components/style';
 
 interface CircleButtonProps {
@@ -16,12 +16,12 @@ const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style })
             <View
                 style={{ width: 50, height: 50, ...style }}
             >
-                <NeomorphBox
+                <Neomorph
                     swapShadowLevel
                     style={{ ...styles.container }}
                 >
                     {children}
-                </NeomorphBox>
+                </Neomorph>
             </View>
         </TouchableWithoutFeedback>
     )

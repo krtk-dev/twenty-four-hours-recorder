@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Animated, View, TouchableWithoutFeedback, Easing, Text } from 'react-native'
-import { NeomorphBox } from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1, WIDTH, COLOR2 } from '../../components/style';
 import CircleButton from '../../components/Button/CircleButton';
 import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord'
@@ -57,42 +57,7 @@ const Clock = () => {
 
     return (
         <View style={{ width: CLOCK_WIDTH, height: CLOCK_WIDTH, alignItems: 'center', justifyContent: 'center' }} >
-            {/* <CircleButton style={{
-                position: 'absolute',
-                translateY: -SAVE_BUTTON_DURATION
-            }}
-                onPress={() => {
-                    console.log(1)
-                    BackgroundAudioRecord.saveRecording(1800, "Recording-" + moment().format("YYYY-MM-DD-h:mm:ss"), () => console.log("SUCCESS"))
-                }}
-            >
-                <Text style={{ color: COLOR2, fontSize: 16 }} >30</Text>
-            </CircleButton>
-            <CircleButton style={{
-                position: 'absolute',
-                translateY: SAVE_BUTTON_DURATION
-            }}
-                onPress={() => {
-                    console.log(1)
-                    BackgroundAudioRecord.saveRecording(900, "Recording-" + moment().format("YYYY-MM-DD-h:mm:ss"), () => console.log("SUCCESS"))
-                }}
-            >
-                <Text style={{ color: COLOR2, fontSize: 16 }} >15</Text>
-            </CircleButton>
-            <CircleButton
-                style={{
-                    position: 'absolute',
-                    translateX: Math.sin(Math.PI / 3) * SAVE_BUTTON_DURATION,
-                    translateY: -Math.cos(Math.PI / 3) * SAVE_BUTTON_DURATION
-                }}
-                onPress={() => {
-                    console.log(1)
-                    BackgroundAudioRecord.saveRecording(300, "Recording-" + moment().format("YYYY-MM-DD-h:mm:ss"), () => console.log("SUCCESS"))
-                }}
-            >
-                <Text style={{ color: COLOR2, fontSize: 16 }} >5</Text>
-            </CircleButton> */}
-            <NeomorphBox
+            <Neomorph
                 style={{
                     shadowRadius: 7,
                     borderRadius: 200,
@@ -103,7 +68,7 @@ const Clock = () => {
                     justifyContent: 'center'
                 }}
             >
-                <NeomorphBox
+                <Neomorph
                     inner
                     style={{
                         shadowRadius: 7,
@@ -115,7 +80,7 @@ const Clock = () => {
                         justifyContent: 'center'
                     }}
                 >
-                    <NeomorphBox
+                    <Neomorph
                         style={{
                             shadowRadius: 7,
                             borderRadius: 200,
@@ -161,9 +126,9 @@ const Clock = () => {
                                 })}
                             </AnimatedSvg>
                         </View>
-                    </NeomorphBox>
-                </NeomorphBox>
-            </NeomorphBox>
+                    </Neomorph>
+                </Neomorph>
+            </Neomorph>
         </View>
     )
 }

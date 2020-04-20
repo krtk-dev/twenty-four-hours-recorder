@@ -11,7 +11,7 @@ declare module 'react-native-neomorph-shadows' {
     }
     export interface ShadowBoxProps {
         inner?: boolean;
-        useSvg?: boolean;
+        useArt?: boolean;
         children?: ReactNode;
         style?: ViewStyle & ShadowBoxStyleProps
         shadowOpacity?: number;
@@ -26,7 +26,7 @@ declare module 'react-native-neomorph-shadows' {
         backgroundColor?: string;
     }
 
-    export interface NeomorphBoxStyleProps {
+    export interface NeomorphStyleProps {
         backgroundColor?: string;
         width: number;
         height: number;
@@ -38,16 +38,16 @@ declare module 'react-native-neomorph-shadows' {
             height?: number;
         }
     }
-    export interface NeomorphBoxProps {
+    export interface NeomorphProps {
         inner?: boolean;
         swapShadowLevel?: boolean;
-        useSvg?: boolean;
+        useArt?: boolean;
         children?: ReactNode;
         darkShadowColor?: string;
         lightShadowColor?: string;
-        style: ViewStyle & NeomorphBoxStyleProps
+        style: ViewStyle & NeomorphStyleProps
     }
 
     export class ShadowBox extends PureComponent<ShadowBoxProps> { }
-    export class NeomorphBox extends PureComponent<NeomorphBoxProps> { }
+    export class Neomorph extends PureComponent<NeomorphProps> { }
 }

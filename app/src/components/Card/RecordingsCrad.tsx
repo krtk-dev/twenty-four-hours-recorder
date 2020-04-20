@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react'
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Animated, Easing, Alert } from 'react-native'
-import { NeomorphBox } from 'react-native-neomorph-shadows'
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Animated, Easing } from 'react-native'
+import { Neomorph } from 'react-native-neomorph-shadows'
 import { WIDTH, COLOR1, COLOR2 } from '../style'
 import PlayIcon from '../Svg/PlayIcon'
 import MenuIcon from '../Svg/MenuIcon'
@@ -12,7 +12,8 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import Dialog from "react-native-dialog";
 
 
-const AnimatedNeomorphBox = Animated.createAnimatedComponent(NeomorphBox)
+const AnimatedNeomorph = Animated.createAnimatedComponent(Neomorph)
+const ANIMATION_DURATION = 240
 
 interface RecordingsCradProps {
     name: string;
@@ -57,7 +58,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
             Animated.timing(animation, {
                 toValue: 1,
                 useNativeDriver: false,
-                duration: 200,
+                duration: ANIMATION_DURATION,
                 easing: Easing.linear
             }).start()
             setDetailUiOn(true)
@@ -66,7 +67,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
             Animated.timing(animation, {
                 toValue: 0,
                 useNativeDriver: false,
-                duration: 200,
+                duration: ANIMATION_DURATION,
                 easing: Easing.linear
             }).start(() => setDetailUiOn(false))
             onSoundRelease() //소리 끄기
@@ -143,9 +144,11 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
             <TouchableWithoutFeedback
                 onPress={() => props.onPress(props.name)}
             >
-                <View>
-                    <AnimatedNeomorphBox
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    <AnimatedNeomorph
                         inner
+                        useArt
+                        swapShadowLevel
                         style={{
                             height: animation.interpolate({
                                 inputRange: [0, 1],
@@ -157,8 +160,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                                 outputRange: [0, 10]
                             }),
                             borderRadius: 20,
-                            backgroundColor: COLOR1,
-                            alignSelf: 'center'
+                            backgroundColor: COLOR1
                         }}
                     >
                         <View style={styles.infoContainer} >
@@ -220,7 +222,7 @@ const RecordingsCrad: React.FC<RecordingsCradProps> = (props) => {
                                 </View>
                             </View>
                         </Animated.View>}
-                    </AnimatedNeomorphBox>
+                    </AnimatedNeomorph>
                 </View>
             </TouchableWithoutFeedback>
             <Dialog.Container
