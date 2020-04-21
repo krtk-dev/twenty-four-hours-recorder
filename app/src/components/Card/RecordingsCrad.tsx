@@ -15,7 +15,7 @@ import { AudioData } from '../../screens/RecordHistoryScreen/Body'
 import byteFormat from '../Generator/byteFormat'
 
 const AnimatedNeomorph = Animated.createAnimatedComponent(Neomorph)
-const ANIMATION_DURATION = 240
+const ANIMATION_DURATION = 200
 
 interface RecordingsCradProps {
     detail: boolean;
@@ -151,7 +151,6 @@ const RecordingsCrad: React.FC<RecordingsCradProps & AudioData> = ({ audioInfo, 
                     <AnimatedNeomorph
                         inner
                         useArt
-                        swapShadowLevel
                         style={{
                             height: animation.interpolate({
                                 inputRange: [0, 1],
@@ -252,13 +251,14 @@ const RecordingsCrad: React.FC<RecordingsCradProps & AudioData> = ({ audioInfo, 
             >
                 <Dialog.Title style={{ color: '#fff' }} >Recording detail</Dialog.Title>
                 <Dialog.Description style={{ color: '#fff' }} >{`File: ${props.name}`}</Dialog.Description>
+                <Dialog.Description style={{ color: '#fff' }} >{`Duration: ${second2RecordingsFormat(audioInfo.duration)}`}</Dialog.Description>
                 <Dialog.Description style={{ color: '#fff' }} >{`Date: ${props.date}`}</Dialog.Description>
                 <Dialog.Description style={{ color: '#fff' }} >{`Size: ${byteFormat(audioInfo.size)}`}</Dialog.Description>
                 <Dialog.Description style={{ color: '#fff' }} >{`Sample rate: ${audioInfo.sampleRate}`}</Dialog.Description>
                 <Dialog.Description style={{ color: '#fff' }} >{`Channel: ${audioInfo.numChannel}`}</Dialog.Description>
                 <Dialog.Description style={{ color: '#fff' }} >{`Bit per sample rate: ${audioInfo.bitPerSample}`}</Dialog.Description>
 
-                <Dialog.Button style={{ color: '#fff' }} onPress={() => setDetailDialog(false)} label="Close" />
+                <Dialog.Button style={{ color: COLOR2 }} onPress={() => setDetailDialog(false)} label="Close" />
             </Dialog.Container>
         </>
     )

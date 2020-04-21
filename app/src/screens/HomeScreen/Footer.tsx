@@ -1,8 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native'
-import { NeomorphBox } from 'react-native-neomorph-shadows'
-import { COLOR1 } from '../../components/style'
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import CircleButton from '../../components/Button/CircleButton';
 

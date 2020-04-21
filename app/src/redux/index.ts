@@ -4,9 +4,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 import Setting from './Setting'
+import SaveTime from './SaveTime'
 
 const rootReducer = combineReducers({
     Setting: persistReducer({ key: 'Setting', storage: AsyncStorage }, Setting),
+    SaveTime
 })
 
 

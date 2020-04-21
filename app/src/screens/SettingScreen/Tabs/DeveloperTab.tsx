@@ -23,7 +23,7 @@ const option = [
 const DeveloperTab = () => {
     return (
         <View >
-            <Text style={styles.title} >DEVELOPER</Text>
+            <Text style={styles.title} >Developer</Text>
             {option.map((item, index) =>
                 <BaseButton
                     key={index}

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     option: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#fff',
         marginLeft: 16
     }

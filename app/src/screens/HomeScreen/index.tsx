@@ -3,11 +3,9 @@ import { StyleSheet, View } from 'react-native'
 import { COLOR1 } from '../../components/style'
 
 
-import Clock from './Clock'
 import Header from './Header'
+import Body from './Body'
 import Footer from './Footer'
-import { Neomorph } from 'react-native-neomorph-shadows'
-import { Text } from 'react-native-svg'
 
 
 const HomeScreen = () => {
@@ -16,9 +14,9 @@ const HomeScreen = () => {
             <View style={styles.headerContainer} >
                 <Header />
             </View>
-            <View style={styles.clockContainer} >
-                <Clock />
-            </View>
+
+            <Body />
+
             <View style={styles.footerContainer} >
                 <Footer />
             </View>
@@ -36,11 +34,6 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 100
-    },
-    clockContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     footerContainer: {
         width: '100%',

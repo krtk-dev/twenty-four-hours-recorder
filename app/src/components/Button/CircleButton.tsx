@@ -1,14 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle } from 'react-native'
+import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle, InteractionManager } from 'react-native'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1 } from '../../components/style';
 
 interface CircleButtonProps {
     onPress?: () => void;
-    style?: ViewStyle
+    style?: ViewStyle;
+    inner?: boolean;
 }
 
-const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style }) => {
+const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style, inner }) => {
     return (
         <TouchableWithoutFeedback
             onPress={onPress}
@@ -17,7 +18,8 @@ const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style })
                 style={{ width: 50, height: 50, ...style }}
             >
                 <Neomorph
-                    swapShadowLevel
+                    useArt
+                    inner={inner}
                     style={{ ...styles.container }}
                 >
                     {children}
