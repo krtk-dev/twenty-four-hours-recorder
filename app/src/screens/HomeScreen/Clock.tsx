@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Animated, View, TouchableWithoutFeedback, Easing, Text } from 'react-native'
 import { Neomorph } from 'react-native-neomorph-shadows';
-import { COLOR1, COLOR2, CLOCK_SIZE } from '../../components/style';
+import { COLOR1, CLOCK_SIZE } from '../../components/style';
 import Svg, { Line } from 'react-native-svg';
+import { CLOCK_ANIMATION_DURATION } from '../../components/value';
 
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 
-const Clock = () => {
+export interface ClockProps {
+    color: string;
+    time: number;
+    animation: Animated.Value
+}
 
-    const [animation] = useState(new Animated.Value(0))
+const Clock: React.FC<ClockProps> = ({ color, time, animation }) => {
+
+
     const [data, setData] = useState<number[]>([])
 
-    const runAnimation = () => {
-        animation.setValue(0)
-        Animated.sequence([
-            Animated.timing(animation, {
-                toValue: 1,
-                duration: 30 * 1000,
-                easing: Easing.linear,
-                useNativeDriver: true
-            })
-        ]).start(() => runAnimation())
-    }
+
 
     const changeValue = (index: number) => {
         setTimeout(() => {
@@ -34,7 +31,6 @@ const Clock = () => {
     }
 
     useEffect(() => {
-        runAnimation()
         // BackgroundAudioRecord.startService()
         // BackgroundAudioRecord.stopService()
         const _data: number[] = []
@@ -43,6 +39,7 @@ const Clock = () => {
         }
         setData(_data)
         // changeValue(0)
+        console.log(360 * CLOCK_ANIMATION_DURATION / time / 1000)
     }, [])
 
     return (
@@ -67,7 +64,7 @@ const Clock = () => {
                         borderRadius: 200,
                         width: CLOCK_SIZE - 20,
                         height: CLOCK_SIZE - 20,
-                        backgroundColor: COLOR2,
+                        backgroundColor: color,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
@@ -85,7 +82,7 @@ const Clock = () => {
                         }}
                     >
 
-                        <Text style={{ color: COLOR2, fontSize: 14 }} >RECORDING</Text>
+                        <Text style={{ color, fontSize: 14 }} >RECORDING</Text>
                         <View
                             style={{
                                 position: 'absolute',
@@ -100,7 +97,7 @@ const Clock = () => {
                                 height={CLOCK_SIZE - 20}
                                 rotation={animation.interpolate({
                                     inputRange: [0, 1],
-                                    outputRange: [0, 360]
+                                    outputRange: [0, 360 * CLOCK_ANIMATION_DURATION / time / 1000]
                                 })}
 
                             >

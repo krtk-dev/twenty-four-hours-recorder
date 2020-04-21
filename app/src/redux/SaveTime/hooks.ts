@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '..';
 import { useCallback } from 'react';
-import { changeTime } from '.';
-import { saveTimeOption } from './types';
+import { changeTimeIndex } from '.';
+import { saveTimeOptionIndex } from './types';
 
 
 export default function hook() {
@@ -10,10 +10,10 @@ export default function hook() {
 
     const dispatch = useDispatch();
 
-    const onChangeTime = useCallback((time: saveTimeOption) => dispatch(changeTime(time)), [dispatch]);
+    const onChangeTimeIndex = useCallback((index: saveTimeOptionIndex) => dispatch(changeTimeIndex(Math.round(index))), [dispatch]);
 
     return {
         saveTime,
-        onChangeTime
+        onChangeTimeIndex
     };
 }

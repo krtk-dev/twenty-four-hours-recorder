@@ -1,34 +1,41 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, NativeSyntheticEvent, NativeScrollEvent, ScrollView } from 'react-native'
+import { View, Animated, StyleSheet, NativeSyntheticEvent, NativeScrollEvent, ScrollView, Easing } from 'react-native'
 import TimeSelector from './TimeSelector'
-import { WIDTH } from '../../components/style'
+import { WIDTH, CLOCK_COLORS } from '../../components/style'
 import Clock from './Clock'
-import { useSaveTime, time2Index } from '../../redux/SaveTime'
+import { useSaveTime, index2Time } from '../../redux/SaveTime'
+import { CLOCK_ANIMATION_DURATION } from '../../components/value'
+
 
 const Body = () => {
 
-    const { onChangeTime, saveTime } = useSaveTime()
+    const { onChangeTimeIndex, saveTime } = useSaveTime()
+
+    const [animation] = useState(new Animated.Value(0))
 
     const scrollViewRef = useRef<ScrollView>(null)
     const [isScrolling, setIsScrolling] = useState(false)
+    const [isDragging, setIsDragging] = useState(false)
 
     useEffect(() => {
-        if (!scrollViewRef.current) return
-        if (isScrolling) return
-        scrollViewRef.current.scrollTo({ x: WIDTH * time2Index(saveTime.time), y: 0, animated: true })
-    }, [saveTime.time])
+        Animated.timing(animation, {
+            toValue: 1,
+            duration: CLOCK_ANIMATION_DURATION,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start()
+    }, [])
+
+
+    useEffect(() => { // 버튼클릭으로 전환
+        if (!scrollViewRef.current || isScrolling || isDragging) return
+        scrollViewRef.current.scrollTo({ x: WIDTH * saveTime.index, y: 0, animated: true })
+    }, [saveTime.index])
 
     const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (!isDragging) return
         const x = event.nativeEvent.contentOffset.x
-        if (x <= WIDTH / 2) {
-            onChangeTime(30)
-        } else if (x <= WIDTH / 2 + WIDTH) {
-            onChangeTime(300)
-        } else if (x <= WIDTH / 2 + WIDTH * 2) {
-            onChangeTime(900)
-        } else {
-            onChangeTime(1800)
-        }
+        onChangeTimeIndex(Math.floor((x + (WIDTH / 2)) / WIDTH))
     }
 
     return (
@@ -43,20 +50,18 @@ const Body = () => {
                     onScroll={onScroll}
                     onMomentumScrollBegin={() => setIsScrolling(true)}
                     onMomentumScrollEnd={() => setIsScrolling(false)}
+                    onScrollBeginDrag={() => setIsDragging(true)}
+                    onScrollEndDrag={() => setIsDragging(false)}
                 >
-                    <View style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
-                        <Clock
-                        />
-                    </View>
-                    <View style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
-                        <Clock />
-                    </View>
-                    <View style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
-                        <Clock />
-                    </View>
-                    <View style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
-                        <Clock />
-                    </View>
+                    {CLOCK_COLORS.map((color, index) =>
+                        <View key={index} style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
+                            <Clock
+                                color={color}
+                                time={index2Time(index)}
+                                animation={animation}
+                            />
+                        </View>
+                    )}
                 </ScrollView>
             </View>
             <TimeSelector />

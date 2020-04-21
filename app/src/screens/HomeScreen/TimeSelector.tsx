@@ -7,7 +7,7 @@ import { useSaveTime } from '../../redux/SaveTime'
 
 const TimeSelector = () => {
 
-    const { saveTime, onChangeTime } = useSaveTime()
+    const { saveTime, onChangeTimeIndex } = useSaveTime()
 
     return (
         <Neomorph
@@ -29,23 +29,23 @@ const TimeSelector = () => {
             }}
         >
             <CircleButton
-                onPress={() => onChangeTime(30)}
+                onPress={() => onChangeTimeIndex(0)}
 
             >
                 <Text style={{ color: COLOR2 }} >30s</Text>
             </CircleButton>
             <CircleButton
-                onPress={() => onChangeTime(300)}
+                onPress={() => onChangeTimeIndex(1)}
             >
                 <Text style={{ color: COLOR2 }} >5m</Text>
             </CircleButton>
             <CircleButton
-                onPress={() => onChangeTime(300)}
+                onPress={() => onChangeTimeIndex(2)}
             >
                 <Text style={{ color: COLOR2 }} >15m</Text>
             </CircleButton>
             <CircleButton
-                onPress={() => onChangeTime(300)}
+                onPress={() => onChangeTimeIndex(3)}
             >
                 <Text style={{ color: COLOR2 }} >30m</Text>
             </CircleButton>

@@ -1,16 +1,16 @@
-import { saveTimeOption } from './types';
+import { saveTimeOption, saveTimeOptionIndex } from './types';
 
 
-export const CHANGETIME = 'savetime/CHANGETIME' as const;
+export const CHANGETIMEINDEX = 'savetime/CHANGETIMEINDEX' as const;
 
-export const changeTime = (time: saveTimeOption) => ({ type: CHANGETIME, time });
+export const changeTimeIndex = (index: saveTimeOptionIndex) => ({ type: CHANGETIMEINDEX, index });
 
 export type SaveTimeAction =
-    | ReturnType<typeof changeTime>;
+    | ReturnType<typeof changeTimeIndex>;
 
 
 export type SaveTimeState = {
-    time: saveTimeOption
+    index: saveTimeOptionIndex
 }
 
 
@@ -19,11 +19,11 @@ import reducer from './reducer'
 export default reducer
 
 
-export const time2Index = (time: saveTimeOption) => {
-    switch (time) {
-        case 30: return 0
-        case 300: return 1
-        case 900: return 2
-        case 1800: return 3
+export const index2Time = (index: saveTimeOptionIndex): saveTimeOption => {
+    switch (index) {
+        case 0: return 30
+        case 1: return 300
+        case 2: return 900
+        case 3: return 1800
     }
 }
