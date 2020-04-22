@@ -13,6 +13,7 @@ const QualityOptions: quility[] = [
 const QuilityTab = () => {
 
     const { setting, onChangeQuility } = useSetting()
+    console.log(setting)
 
     return (
         <View >
@@ -27,7 +28,7 @@ const QuilityTab = () => {
                     <Text
                         style={{
                             ...styles.option,
-                            opacity: setting.quility === item ? 1 : 0.5
+                            opacity: setting.quility.sampleRate === item.sampleRate ? 1 : 0.5
                         }}
                     >
                         {Math.floor(item.sampleRate / 1000)}kHz, {item.bit}Bit, {item.channer === 1 ? 'Mono' : 'Stereo'}
