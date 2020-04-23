@@ -14,9 +14,9 @@ const HomeScreen = () => {
             <View style={styles.headerContainer} >
                 <Header />
             </View>
-
-            <Body />
-
+            <View style={styles.bodyContainer} >
+                <Body />
+            </View>
             <View style={styles.footerContainer} >
                 <Footer />
             </View>
@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 100
+    },
+    bodyContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     footerContainer: {
         width: '100%',

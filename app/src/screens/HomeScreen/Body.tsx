@@ -9,16 +9,14 @@ import { CLOCK_ANIMATION_DURATION } from '../../components/value'
 
 const Body = () => {
 
-    const { onChangeTimeIndex, saveTime } = useSaveTime()
+    const { saveTime } = useSaveTime()
 
-    const [animation] = useState(new Animated.Value(0))
-
-    const scrollViewRef = useRef<ScrollView>(null)
-    const [isScrolling, setIsScrolling] = useState(false)
-    const [isDragging, setIsDragging] = useState(false)
+    const [clockAnimation] = useState(new Animated.Value(0))
+    const [ChangeClockAnimation] = useState(new Animated.Value(0))
+    const [lastSaveTimeIndex, setLastSaveTimeIndex] = useState(0)
 
     useEffect(() => {
-        Animated.timing(animation, {
+        Animated.timing(clockAnimation, {
             toValue: 1,
             duration: CLOCK_ANIMATION_DURATION,
             easing: Easing.linear,
@@ -27,53 +25,60 @@ const Body = () => {
     }, [])
 
 
-    useEffect(() => { // 버튼클릭으로 전환
-        if (!scrollViewRef.current || isScrolling || isDragging) return
-        scrollViewRef.current.scrollTo({ x: WIDTH * saveTime.index, y: 0, animated: true })
+    useEffect(() => {
+        ChangeClockAnimation.setValue(0)
+        Animated.sequence([
+            Animated.timing(ChangeClockAnimation, {
+                toValue: 1,
+                duration: 300,
+                useNativeDriver: true,
+                easing: Easing.inOut(Easing.ease)
+            })
+        ]).start(() => setLastSaveTimeIndex(saveTime.index))
     }, [saveTime.index])
-
-    const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        if (!isDragging) return
-        const x = event.nativeEvent.contentOffset.x
-        onChangeTimeIndex(Math.floor((x + (WIDTH / 2)) / WIDTH))
-    }
 
     return (
         <View style={styles.container} >
             <View style={{ width: WIDTH }} >
-                <ScrollView
-                    ref={scrollViewRef}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled
-                    overScrollMode='never'
-                    onScroll={onScroll}
-                    onMomentumScrollBegin={() => setIsScrolling(true)}
-                    onMomentumScrollEnd={() => setIsScrolling(false)}
-                    onScrollBeginDrag={() => setIsDragging(true)}
-                    onScrollEndDrag={() => setIsDragging(false)}
-                >
+                <Animated.View style={{
+                    flexDirection: 'row',
+                    translateX: ChangeClockAnimation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-lastSaveTimeIndex * WIDTH, -saveTime.index * WIDTH]
+                    })
+                }} >
                     {CLOCK_COLORS.map((color, index) =>
                         <View key={index} style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
                             <Clock
                                 color={color}
                                 time={index2Time(index)}
-                                animation={animation}
+                                animation={clockAnimation}
                             />
                         </View>
                     )}
-                </ScrollView>
+                </Animated.View>
             </View>
-            <TimeSelector />
+            <Animated.View
+                style={{
+                    position: 'absolute', translateY: ChangeClockAnimation.interpolate({
+                        inputRange: [0, 0.5, 1],
+                        outputRange: [120, 220, 120]
+                    })
+                }}
+            >
+                <TimeSelector />
+            </Animated.View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        transform: [{ translateY: -50 }],
+        height: '100%'
     }
 })
 

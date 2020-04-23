@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle, InteractionManager } from 'react-native'
+import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle } from 'react-native'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1 } from '../../components/style';
 
