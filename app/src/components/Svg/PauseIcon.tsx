@@ -28,4 +28,5 @@ function SvgComponent() {
     )
 }
 
-export default SvgComponent
+const MemoSvgComponent = React.memo(SvgComponent)
+export default MemoSvgComponent

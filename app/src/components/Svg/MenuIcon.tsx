@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { G, Circle } from "react-native-svg"
 
-function MenuIcon() {
+function SvgComponent() {
     return (
         <Svg width={15} height={3} viewBox="0 0 15 3">
             <G
@@ -36,4 +36,5 @@ function MenuIcon() {
     )
 }
 
-export default MenuIcon
+const MemoSvgComponent = React.memo(SvgComponent)
+export default MemoSvgComponent

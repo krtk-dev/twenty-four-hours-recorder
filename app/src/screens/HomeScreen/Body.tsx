@@ -42,6 +42,7 @@ const Body = () => {
             <View style={{ width: WIDTH }} >
                 <Animated.View style={{
                     flexDirection: 'row',
+                    width: WIDTH * 4,
                     translateX: ChangeClockAnimation.interpolate({
                         inputRange: [0, 1],
                         outputRange: [-lastSaveTimeIndex * WIDTH, -saveTime.index * WIDTH]
@@ -62,7 +63,7 @@ const Body = () => {
                 style={{
                     position: 'absolute', translateY: ChangeClockAnimation.interpolate({
                         inputRange: [0, 0.5, 1],
-                        outputRange: [120, 220, 120]
+                        outputRange: [124, 220, 124]
                     })
                 }}
             >

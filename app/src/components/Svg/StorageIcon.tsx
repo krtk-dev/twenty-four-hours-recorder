@@ -3,10 +3,10 @@ import Svg, { Path } from "react-native-svg"
 
 function SvgComponent() {
     return (
-        <Svg width={19} height={23} viewBox="0 0 19 23">
+        <Svg width={16} height={16} viewBox="0 0 16 16" >
             <Path
-                data-name="\uB2E4\uAC01\uD615 1"
-                d="M16.173 9.789a2 2 0 010 3.422L3.035 21.163A2 2 0 010 19.452V3.548a2 2 0 013.036-1.711z"
+                data-name="\uD328\uC2A4 14"
+                d="M2.293 1.333L2 0h12l-.3 1.333zm12.188 5.334l-1.048 8H2.531l-1.017-8zM16 5.333H0L1.357 16H14.6zM14.837 4l.247-1.333H.913L1.161 4z"
                 fill="#fff"
             />
         </Svg>
