@@ -7,8 +7,8 @@ import Setting from './Setting'
 import SaveTime from './SaveTime'
 
 const rootReducer = combineReducers({
-    Setting: persistReducer({ key: 'SETTING', storage: AsyncStorage }, Setting),
-    SaveTime
+    SaveTime,
+    Setting: persistReducer({ key: 'SETTING', storage: AsyncStorage }, Setting)
 })
 
 

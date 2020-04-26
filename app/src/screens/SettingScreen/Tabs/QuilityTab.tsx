@@ -13,7 +13,10 @@ const QualityOptions: quility[] = [
 const QuilityTab = () => {
 
     const { setting, onChangeQuility } = useSetting()
-    console.log(setting)
+
+    const onQuility = () => {
+
+    }
 
     return (
         <View >
@@ -23,7 +26,7 @@ const QuilityTab = () => {
 
                     key={index}
                     style={styles.optionButton}
-                    onPress={() => onChangeQuility(item)}
+                    onPress={onQuility}
                 >
                     <Text
                         style={{
@@ -36,6 +39,20 @@ const QuilityTab = () => {
                 </BaseButton>
             )
             }
+            <Dialog.Container
+                visible={deleteDialog}
+                contentStyle={{ backgroundColor: COLOR1, elevation: 0 }}
+                onBackButtonPress={() => setDeleteDialog(false)}
+                onBackdropPress={() => setDeleteDialog(false)}
+
+            >
+                <Dialog.Title style={{ color: '#fff' }} >Recording delete</Dialog.Title>
+                <Dialog.Description style={{ color: '#fff' }} >
+                    Do you want to delete this recording? You cannot undo this action.
+                </Dialog.Description>
+                <Dialog.Button style={{ color: '#fff' }} onPress={() => setDeleteDialog(false)} label="Cancel" />
+                <Dialog.Button style={{ color: COLOR2 }} onPress={onDelete} label="Delete" />
+            </Dialog.Container>
         </View >
     )
 }
