@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { quility } from '../../../redux/Setting/types'
 import { useSetting } from '../../../redux/Setting'
 import { BaseButton } from 'react-native-gesture-handler'
+import Dialog from 'react-native-dialog'
+import { COLOR2, COLOR1 } from '../../../components/style'
 
 const QualityOptions: quility[] = [
     { sampleRate: 8000, bit: 16, channer: 2 },
@@ -14,8 +16,17 @@ const QuilityTab = () => {
 
     const { setting, onChangeQuility } = useSetting()
 
-    const onQuility = () => {
+    const [alert, setAlert] = useState(false)
+    const [targetQuilityIndex, setTargetQuilityIndex] = useState<number>(-1)
 
+    const onShowAlert = (index: number) => {
+        setTargetQuilityIndex(index)
+        setAlert(true)
+    }
+
+    const onQuility = () => {
+        onChangeQuility(QualityOptions[targetQuilityIndex])
+        setAlert(false)
     }
 
     return (
@@ -23,10 +34,9 @@ const QuilityTab = () => {
             <Text style={styles.title} >Quality</Text>
             {QualityOptions.map((item, index) =>
                 <BaseButton
-
                     key={index}
                     style={styles.optionButton}
-                    onPress={onQuility}
+                    onPress={() => onShowAlert(index)}
                 >
                     <Text
                         style={{
@@ -40,18 +50,16 @@ const QuilityTab = () => {
             )
             }
             <Dialog.Container
-                visible={deleteDialog}
+                visible={alert}
                 contentStyle={{ backgroundColor: COLOR1, elevation: 0 }}
-                onBackButtonPress={() => setDeleteDialog(false)}
-                onBackdropPress={() => setDeleteDialog(false)}
+                onBackButtonPress={() => setAlert(false)}
+                onBackdropPress={() => setAlert(false)}
 
             >
-                <Dialog.Title style={{ color: '#fff' }} >Recording delete</Dialog.Title>
-                <Dialog.Description style={{ color: '#fff' }} >
-                    Do you want to delete this recording? You cannot undo this action.
-                </Dialog.Description>
-                <Dialog.Button style={{ color: '#fff' }} onPress={() => setDeleteDialog(false)} label="Cancel" />
-                <Dialog.Button style={{ color: COLOR2 }} onPress={onDelete} label="Delete" />
+                <Dialog.Title style={{ color: '#fff' }} >Change quility</Dialog.Title>
+                <Dialog.Description style={{ color: '#fff' }} >Recording will reset</Dialog.Description>
+                <Dialog.Button style={{ color: '#fff' }} onPress={() => setAlert(false)} label="CANCEL" />
+                <Dialog.Button style={{ color: COLOR2 }} onPress={onQuility} label="CHANGE" />
             </Dialog.Container>
         </View >
     )
