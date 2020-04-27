@@ -218,8 +218,8 @@ const RecordingsCrad: React.FC<RecordingsCradProps & AudioData> = ({ audioInfo, 
                                     >
                                         <MenuItem onPress={onShare} textStyle={{ color: '#fff' }} >Share</MenuItem>
                                         {/* <MenuItem onPress={onRename} textStyle={{ color: '#fff' }} >Rename</MenuItem> */}
-                                        <MenuItem onPress={() => setDeleteDialog(true)} textStyle={{ color: '#fff' }} >Delete</MenuItem>
                                         <MenuItem onPress={onDetail} textStyle={{ color: '#fff' }} >Detail</MenuItem>
+                                        <MenuItem onPress={() => setDeleteDialog(true)} textStyle={{ color: '#fff' }} >Delete</MenuItem>
                                     </Menu>
                                 </View>
                             </View>

@@ -24,6 +24,7 @@ const Body = () => {
         for (const i in files) {
             if (files[i].name.includes(".wav")) {
                 const info = await getWavInfo(files[i].path)
+                console.log(files[i].ctime)
                 ls.push({
                     name: files[i].name.split('.')[0],
                     date: moment(files[i].ctime?.getDate()).format('YYYY-MM-DD hh:mm'),

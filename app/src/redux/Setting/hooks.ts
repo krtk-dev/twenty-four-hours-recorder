@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '..';
 import { useCallback } from 'react';
-import { changeQuility } from '.';
+import { changeQuility, setDontShowAgain, setPro } from '.';
 import { quility } from './types';
 
 
@@ -11,9 +11,13 @@ export default function hook() {
     const dispatch = useDispatch();
 
     const onChangeQuility = useCallback((quility: quility) => dispatch(changeQuility(quility)), [dispatch]);
+    const onSetPro = useCallback((pro: boolean) => dispatch(setPro(pro)), [dispatch])
+    const onSetDontShowAgain = useCallback(() => dispatch(setDontShowAgain()), [dispatch])
 
     return {
         setting,
-        onChangeQuility
+        onChangeQuility,
+        onSetPro,
+        onSetDontShowAgain
     };
 }

@@ -1,10 +1,12 @@
 - PRO
 - 튜토리얼? 처음 클릭시에만 보여주고 다음부터 안보기 만들자
-- 퀄리티 변경시 안내 문구
-- 저장시 안내 문구 + 광고
+- 저장 완려 reject로 해서 비동기화
 
 UI
 - fontfamily
 - recordings animation하나로
 - 카카오톡 공유 blob
 - setting button 잘안눌림
+- 퀄리티 변경 문구
+- recordings ctime
+- 광고
