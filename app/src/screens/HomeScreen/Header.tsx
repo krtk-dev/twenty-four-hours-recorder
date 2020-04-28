@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 
 const Header = () => {
     const { navigate } = useNavigation()
+
     return (
         <View style={styles.container} >
             <View style={styles.titleGroup} >
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 20,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     titleGroup: {
         alignItems: 'flex-start'

@@ -36,7 +36,7 @@ const AppContainer = () => {
             onStateChange={state => {
                 const previousRouteName = routeNameRef.current;
                 const currentRouteName = getActiveRouteName(state);
-                console.log(previousRouteName + " : " + currentRouteName)
+
                 if (previousRouteName !== currentRouteName) {
                     analytics().setCurrentScreen(currentRouteName, currentRouteName);
                 }

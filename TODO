@@ -1,12 +1,18 @@
-- PRO
-- 튜토리얼? 처음 클릭시에만 보여주고 다음부터 안보기 만들자
-- 저장 완려 reject로 해서 비동기화
-
-UI
-- fontfamily
-- recordings animation하나로
-- 카카오톡 공유 blob
-- setting button 잘안눌림
-- 퀄리티 변경 문구
-- recordings ctime
+[TODO]
 - 광고
+- recordings animation하나로
+- recordings ctime
+- PRO
+- 화면전환 애님
+
+
+[나중에]
+- 저장위치 local or sdcard
+- 저장 규칙
+- fontfamily
+- 스플레시
+- 아이콘
+- 저장 완려 reject로 해서 비동기화
+- 카카오톡 공유 blob
+- 퀄리티 변경 문구
+- 튜토리얼 모달 문구

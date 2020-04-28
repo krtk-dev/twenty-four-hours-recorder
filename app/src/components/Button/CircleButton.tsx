@@ -11,21 +11,23 @@ interface CircleButtonProps {
 
 const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style, inner }) => {
     return (
-        <TouchableWithoutFeedback
-            onPress={onPress}
-        >
-            <View
-                style={{ width: 50, height: 50, ...style }}
+        <View>
+            <TouchableWithoutFeedback
+                onPress={onPress}
             >
-                <Neomorph
-                    useArt
-                    inner={inner}
-                    style={{ ...styles.container }}
+                <View
+                    style={{ width: 50, height: 50, ...style }}
                 >
-                    {children}
-                </Neomorph>
-            </View>
-        </TouchableWithoutFeedback>
+                    <Neomorph
+                        useArt
+                        inner={inner}
+                        style={{ ...styles.container }}
+                    >
+                        {children}
+                    </Neomorph>
+                </View>
+            </TouchableWithoutFeedback>
+        </View>
     )
 }
 
