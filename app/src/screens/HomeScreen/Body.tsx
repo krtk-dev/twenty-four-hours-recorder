@@ -51,6 +51,7 @@ const Body = () => {
                     {CLOCK_COLORS.map((color, index) =>
                         <View key={index} style={{ width: WIDTH, alignItems: 'center', marginVertical: 20 }} >
                             <Clock
+                                index={index}
                                 color={color}
                                 time={index2Time(index)}
                                 animation={clockAnimation}

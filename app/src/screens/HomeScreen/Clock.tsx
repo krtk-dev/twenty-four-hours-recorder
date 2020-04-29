@@ -9,16 +9,29 @@ import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord';
 import moment from 'moment';
 import Dialog from 'react-native-dialog';
 import { useSetting } from '../../redux/Setting';
+import { InterstitialAd, TestIds, AdEventType, RewardedAd, RewardedAdEventType, BannerAdSize, BannerAd } from '@react-native-firebase/admob'
+import analytics from '@react-native-firebase/analytics';
+import { saveLog } from '../../components/analytics';
+
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
+
+const interstitial = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+    requestNonPersonalizedAdsOnly: true,
+});
+
+const rewarded = RewardedAd.createForAdRequest(TestIds.REWARDED, {
+    requestNonPersonalizedAdsOnly: true
+});
 
 export interface ClockProps {
     color: string;
     time: number;
-    animation: Animated.Value
+    animation: Animated.Value;
+    index: number;
 }
 
-const Clock: React.FC<ClockProps> = ({ color, time, animation }) => {
+const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
 
     const { setting, onSetDontShowAgain } = useSetting()
 
@@ -31,11 +44,35 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation }) => {
         for (let i = 0; i < 180; i++) {
             _data.push(Math.random())
         }
+
         setData(_data)
+        //광고
+        const rewardedEventListener = rewarded.onAdEvent((type) => {
+            if (type === AdEventType.CLOSED) {
+                rewarded.load()
+            }
+        });
+
+        const interstitialEventListener = interstitial.onAdEvent(type => {
+            if (type === AdEventType.CLOSED) {
+                interstitial.load()
+            }
+        });
+
+        interstitial.load()
+        rewarded.load()
+
+        return () => {
+            rewardedEventListener()
+            interstitialEventListener()
+        };
     }, [])
 
-    const onSavePress = () => {
-        if (time > 30 && !setting.dontShowAgain) {
+
+
+
+    const onSavePress = () => { //모달 띄울지 말지
+        if (index > 0 && !setting.dontShowAgain) {
             setAlert(true)
         } else {
             onSave()
@@ -44,12 +81,22 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation }) => {
 
     const onSave = async () => {
         setAlert(false)
-        if (time > 30) {
+        if (index > 0) {
             onSetDontShowAgain() //다음부터 alert보지 않기
-            //광고 시청 하기 추가
             saveProcess()
+            showAds()
         } else {
             saveProcess()
+        }
+        saveLog(time) //analytics로그
+    }
+
+    const showAds = () => {
+        switch (index) {
+            case 0: return
+            case 1: return interstitial.loaded && interstitial.show()
+            case 2: return interstitial.loaded && interstitial.show()
+            case 3: return rewarded.loaded && rewarded.show()
         }
     }
     const saveProcess = () => {
