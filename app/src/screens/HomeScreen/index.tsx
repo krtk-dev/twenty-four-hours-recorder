@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { COLOR1 } from '../../components/style'
+import { COLOR1, WIDTH } from '../../components/style'
 
 
 import Header from './Header'

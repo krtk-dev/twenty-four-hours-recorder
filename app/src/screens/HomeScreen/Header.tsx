@@ -13,11 +13,13 @@ const Header = () => {
                 <Text style={{ ...styles.title, fontSize: 16 }} >24h</Text>
                 <Text style={{ ...styles.title, fontSize: 28 }} >Recorder</Text>
             </View>
-            <CircleButton
-                onPress={() => navigate('Setting')}
-            >
-                <Icon name='settings' color='#fff' size={20} />
-            </CircleButton>
+            <View style={{ width: 50, height: 50 }} >
+                <CircleButton
+                    onPress={() => navigate('Setting')}
+                >
+                    <Icon name='settings' color='#fff' size={20} />
+                </CircleButton>
+            </View>
         </View>
     )
 }
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 20,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     titleGroup: {
         alignItems: 'flex-start'

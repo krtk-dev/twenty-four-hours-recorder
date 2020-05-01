@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback, ViewStyle } from 'react-native'
+import { StyleSheet, View, ViewStyle, TouchableOpacity } from 'react-native'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1 } from '../../components/style';
 
@@ -11,23 +11,21 @@ interface CircleButtonProps {
 
 const CircleButton: React.FC<CircleButtonProps> = ({ onPress, children, style, inner }) => {
     return (
-        <View>
-            <TouchableWithoutFeedback
-                onPress={onPress}
+        <TouchableOpacity
+            onPress={onPress}
+        >
+            <View
+                style={{ width: 50, height: 50, ...style }}
             >
-                <View
-                    style={{ width: 50, height: 50, ...style }}
+                <Neomorph
+                    useArt
+                    inner={inner}
+                    style={{ ...styles.container }}
                 >
-                    <Neomorph
-                        useArt
-                        inner={inner}
-                        style={{ ...styles.container }}
-                    >
-                        {children}
-                    </Neomorph>
-                </View>
-            </TouchableWithoutFeedback>
-        </View>
+                    {children}
+                </Neomorph>
+            </View>
+        </TouchableOpacity>
     )
 }
 
