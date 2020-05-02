@@ -25,5 +25,6 @@ export const index2Time = (index: saveTimeOptionIndex): saveTimeOption => {
         case 1: return 300
         case 2: return 900
         case 3: return 1800
+        default: return 30
     }
 }

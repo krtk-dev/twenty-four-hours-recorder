@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { StyleSheet, Animated, View, TouchableWithoutFeedback, Easing, Text, ToastAndroid } from 'react-native'
+import { StyleSheet, Animated, View, TouchableWithoutFeedback, Easing, Text, ToastAndroid, TouchableOpacity } from 'react-native'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1, CLOCK_SIZE, COLOR2 } from '../../components/style';
 import Svg, { Line } from 'react-native-svg';
@@ -84,7 +84,7 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
         if (index > 0) {
             onSetDontShowAgain() //다음부터 alert보지 않기
             saveProcess()
-            showAds()
+            if (!setting.pro) showAds()
         } else {
             saveProcess()
         }
@@ -133,7 +133,43 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
                         justifyContent: 'center'
                     }}
                 >
-                    <TouchableWithoutFeedback onPress={onSavePress}>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            width: CLOCK_SIZE - 20,
+                            height: CLOCK_SIZE - 20,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 200,
+                        }} >
+                        <AnimatedSvg
+                            width={CLOCK_SIZE - 20}
+                            height={CLOCK_SIZE - 20}
+                            rotation={animation.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0, 360 * CLOCK_ANIMATION_DURATION / time / 1000]
+                            })}
+
+                        >
+                            {data.map((value, index) => {
+                                const height = value * 14 + 1; //15=max min=1 heigth
+                                const v = ((CLOCK_SIZE - 60) / 2 - height / 2)
+                                return <Line
+                                    key={index}
+                                    x1={(CLOCK_SIZE - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * v)}
+                                    y1={(CLOCK_SIZE - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * v)}
+                                    x2={(CLOCK_SIZE - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * (v + height))}
+                                    y2={(CLOCK_SIZE - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * (v + height))}
+                                    stroke="#fff"
+                                    strokeWidth="1"
+                                />
+                            })}
+                        </AnimatedSvg>
+                    </View>
+                    <TouchableOpacity
+                        onPress={onSavePress}
+                        activeOpacity={0.6}
+                    >
                         <Neomorph
                             useArt
                             style={{
@@ -148,41 +184,9 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
                         >
 
                             <SaveIcon />
-                            <View
-                                style={{
-                                    position: 'absolute',
-                                    width: CLOCK_SIZE - 20,
-                                    height: CLOCK_SIZE - 20,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    borderRadius: 200,
-                                }} >
-                                <AnimatedSvg
-                                    width={CLOCK_SIZE - 20}
-                                    height={CLOCK_SIZE - 20}
-                                    rotation={animation.interpolate({
-                                        inputRange: [0, 1],
-                                        outputRange: [0, 360 * CLOCK_ANIMATION_DURATION / time / 1000]
-                                    })}
-
-                                >
-                                    {data.map((value, index) => {
-                                        const height = value * 14 + 1; //15=max min=1 heigth
-                                        const v = ((CLOCK_SIZE - 60) / 2 - height / 2)
-                                        return <Line
-                                            key={index}
-                                            x1={(CLOCK_SIZE - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * v)}
-                                            y1={(CLOCK_SIZE - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * v)}
-                                            x2={(CLOCK_SIZE - 20) / 2 + (Math.sin(Math.PI * 2 * index / data.length) * (v + height))}
-                                            y2={(CLOCK_SIZE - 20) / 2 - (Math.cos(Math.PI * 2 * index / data.length) * (v + height))}
-                                            stroke="#fff"
-                                            strokeWidth="1"
-                                        />
-                                    })}
-                                </AnimatedSvg>
-                            </View>
                         </Neomorph>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
+
                 </Neomorph>
             </Neomorph>
             <Dialog.Container

@@ -4,3 +4,4 @@ export const INSTAGRAM = 'https://www.instagram.com/dev_hyun'
 export const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.koreanthinker.twentyfourhourrecorder'
 
 export const CLOCK_ANIMATION_DURATION = 3600000
+export const PRODUCT_ID_PRO = 'android.test.purchased'

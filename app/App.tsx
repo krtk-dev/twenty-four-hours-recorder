@@ -7,6 +7,7 @@ import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
 import firebase from '@react-native-firebase/app'
 import { StatusBar } from 'react-native';
 import { COLOR1 } from './src/components/style';
+import InAppBilling from 'react-native-billing';
 
 
 const { store, persistor } = configureStore();
@@ -21,6 +22,7 @@ const App = () => {
           tagForChildDirectedTreatment: true,
           tagForUnderAgeOfConsent: true,
         })
+      await InAppBilling.close();
     } catch (error) {
       console.log(error)
     }
