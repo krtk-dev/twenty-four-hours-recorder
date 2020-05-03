@@ -5,7 +5,7 @@ import { WIDTH, CLOCK_COLORS } from '../../components/style'
 import Clock from './Clock'
 import { useSaveTime, index2Time } from '../../redux/SaveTime'
 import { CLOCK_ANIMATION_DURATION } from '../../components/value'
-
+import RateModal from '../../components/Modal/RateModal'
 
 const Body = () => {
 
@@ -14,6 +14,7 @@ const Body = () => {
     const [clockAnimation] = useState(new Animated.Value(0))
     const [ChangeClockAnimation] = useState(new Animated.Value(0))
     const [lastSaveTimeIndex, setLastSaveTimeIndex] = useState(0)
+    const [rateModal, setRateModal] = useState(false)
 
     useEffect(() => {
         Animated.timing(clockAnimation, {
@@ -55,6 +56,7 @@ const Body = () => {
                                 color={color}
                                 time={index2Time(index)}
                                 animation={clockAnimation}
+                                showRateModal={() => setRateModal(true)}
                             />
                         </View>
                     )}
@@ -70,6 +72,10 @@ const Body = () => {
             >
                 <TimeSelector />
             </Animated.View>
+            <RateModal
+                visible={rateModal}
+                closeModal={() => setRateModal(false)}
+            />
         </View>
     )
 }

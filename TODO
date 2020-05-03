@@ -1,16 +1,20 @@
+[TODAY]
+- 평가 요청
+- 예전꺼 다운받아서 램 테스트 해보자
+
 [TODO]
-- PRO
+- 스플레시
+- 아이콘
 - setting 버튼 안눌림
+- notification icon & noti 후순위로
+- 램줄여봐
+- 스토어 등록 & 개처방 영어로써보자
 
 
 [나중에]
 - 저장위치 local or sdcard
 - 저장 규칙
 - fontfamily
-- 스플레시
-- 아이콘
 - 카카오톡 공유 blob
-- 퀄리티 변경 문구
-- 튜토리얼 모달 문구
-- 평가 요청
+- 영어 문구들
 - admob id 적용

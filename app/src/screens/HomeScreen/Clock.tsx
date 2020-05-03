@@ -10,7 +10,6 @@ import moment from 'moment';
 import Dialog from 'react-native-dialog';
 import { useSetting } from '../../redux/Setting';
 import { InterstitialAd, TestIds, AdEventType, RewardedAd, RewardedAdEventType, BannerAdSize, BannerAd } from '@react-native-firebase/admob'
-import analytics from '@react-native-firebase/analytics';
 import { saveLog } from '../../components/analytics';
 
 
@@ -29,9 +28,10 @@ export interface ClockProps {
     time: number;
     animation: Animated.Value;
     index: number;
+    showRateModal: () => void;
 }
 
-const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
+const Clock: React.FC<ClockProps> = ({ color, time, animation, index, showRateModal }) => {
 
     const { setting, onSetDontShowAgain } = useSetting()
 
@@ -89,6 +89,7 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
             saveProcess()
         }
         saveLog(time) //analytics로그
+        rateModalCheck() // 평점 유도
     }
 
     const showAds = () => {
@@ -104,6 +105,10 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index }) => {
             if (state === 'success') ToastAndroid.show('Save success', ToastAndroid.SHORT)
             else ToastAndroid.show('Fail', ToastAndroid.SHORT)
         })
+    }
+
+    const rateModalCheck = () => {
+        showRateModal()
     }
 
     return (
