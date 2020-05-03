@@ -14,9 +14,12 @@ const Footer = () => {
 
     const initPro = async () => { // init 실페하더라도 최신 저장 데이터로
         try {
+            await InAppBilling.close();
             await InAppBilling.open();
             const isPurchased = await InAppBilling.isPurchased(PRODUCT_ID_PRO)
             onSetPro(isPurchased)
+        } catch (err) {
+            console.log(err)
         } finally {
             await InAppBilling.close();
         }
@@ -27,8 +30,8 @@ const Footer = () => {
     }, [])
 
     const billingPro = async () => {
-        await InAppBilling.close();
         try {
+            await InAppBilling.close();
             await InAppBilling.open();
             const isPurchased = await InAppBilling.isPurchased(PRODUCT_ID_PRO)
             if (isPurchased) {

@@ -4,7 +4,9 @@ import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord'
 const initialState: SettingState = {
     quility: { sampleRate: 16000, bit: 16, channer: 2 },
     dontShowAgain: false,
-    pro: false
+    pro: false,
+    dontShowRate: false,
+    saveCount: 0
 };
 
 function reducer(state: SettingState = initialState, action: SettingAction): SettingState {
@@ -18,6 +20,10 @@ function reducer(state: SettingState = initialState, action: SettingAction): Set
             return { ...state, pro: action.pro }
         case 'setting/SETDONTSHOWAGAIN':
             return { ...state, dontShowAgain: true }
+        case 'setting/SAVECOUNTPLUS':
+            return { ...state, saveCount: state.saveCount + 1 }
+        case 'setting/SETDONTSHOWRATE':
+            return { ...state, dontShowRate: true }
         default:
             return state;
     }

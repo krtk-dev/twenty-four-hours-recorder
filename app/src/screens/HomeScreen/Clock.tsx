@@ -3,7 +3,7 @@ import { StyleSheet, Animated, View, TouchableWithoutFeedback, Easing, Text, Toa
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { COLOR1, CLOCK_SIZE, COLOR2 } from '../../components/style';
 import Svg, { Line } from 'react-native-svg';
-import { CLOCK_ANIMATION_DURATION } from '../../components/value';
+import { CLOCK_ANIMATION_DURATION, RATEUNIT } from '../../components/value';
 import SaveIcon from '../../components/Svg/SaveIcon'
 import BackgroundAudioRecord from '../../modules/BackgroundAudioRecord';
 import moment from 'moment';
@@ -33,7 +33,7 @@ export interface ClockProps {
 
 const Clock: React.FC<ClockProps> = ({ color, time, animation, index, showRateModal }) => {
 
-    const { setting, onSetDontShowAgain } = useSetting()
+    const { setting, onSetDontShowAgain, onSaveCountPlus } = useSetting()
 
     const [data, setData] = useState<number[]>([])
     const [alert, setAlert] = useState(false)
@@ -89,6 +89,7 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index, showRateMo
             saveProcess()
         }
         saveLog(time) //analytics로그
+        onSaveCountPlus()
         rateModalCheck() // 평점 유도
     }
 
@@ -108,7 +109,7 @@ const Clock: React.FC<ClockProps> = ({ color, time, animation, index, showRateMo
     }
 
     const rateModalCheck = () => {
-        showRateModal()
+        if (!setting.dontShowRate && setting.saveCount !== 0 && setting.saveCount % RATEUNIT === 0) showRateModal()
     }
 
     return (
