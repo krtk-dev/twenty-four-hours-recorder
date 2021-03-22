@@ -11,6 +11,7 @@
 
 # 중도포기
 - 메모리가 안잡힘 안드로이드 네이티브에서는 50mb보다 적게 사용하는데 RN으로 하니깐 150 ~ 300 수준... (hermes알아보자)
+- 아무나 완성해주시길 ㅠ
 
 # 오류
 - googleservice.json 오류 뜰때 [링크](https://lollolzkk.tistory.com/26)
