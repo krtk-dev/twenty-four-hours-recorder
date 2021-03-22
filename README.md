@@ -1,6 +1,9 @@
 # 24h_Recorder
 백그라운드에서 24시간 녹음하면서 최근 1시간 까지 저장
 
+# 스크린샷
+<img src="https://github.com/KoreanThinker/24h_Recorder/blob/master/screencap.png" alt="스크린샷"  />
+
 # 스택
 - React-Native
 - Android-Naitve (Java)
