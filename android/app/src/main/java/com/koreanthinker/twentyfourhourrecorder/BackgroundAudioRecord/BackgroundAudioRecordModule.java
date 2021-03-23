@@ -10,6 +10,7 @@ import com.facebook.react.bridge.Callback;
 public class BackgroundAudioRecordModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    private  RecordManager RM = null;
 
     private BackgroundAudioRecord mBackgroundAudioRecord = null;
 

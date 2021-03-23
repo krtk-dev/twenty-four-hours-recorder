@@ -45,6 +45,7 @@ public class ForeGroundService extends Service {
         startForeground(999, notification);
         // 쓰레드 동작 시작
         RM = new RecordManager(this);
+        Log.d("ASDF", "Created RecordManager");
         RM.onRecord();
 
         return START_NOT_STICKY;

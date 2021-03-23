@@ -18,7 +18,6 @@ export { default as useSaveTime } from './hooks'
 import reducer from './reducer'
 export default reducer
 
-
 export const index2Time = (index: saveTimeOptionIndex): saveTimeOption => {
     switch (index) {
         case 0: return 30

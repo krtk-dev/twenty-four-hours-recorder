@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.UserHandle;
+import android.util.Log;
 import android.view.Display;
 
 import java.io.File;
@@ -39,11 +40,14 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 public class BackgroundAudioRecord {
+
     public void startService(Context context) {
         if(isLaunchingService(context)) return;
         Intent serviceIntent = new Intent(context, ForeGroundService.class);
         if (Build.VERSION.SDK_INT >= 26) {
+            Log.d("ASDF", "START SERVICE");
             context.startForegroundService(serviceIntent);
+            Log.d("ASDF", "START SUCCESS");
         } else {
             context.startService(serviceIntent);
         }

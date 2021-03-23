@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "cd android && ./gradlew clean && cd .. && react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "adb devices && react-native run-android",
+    "android:release": "adb devices && react-native run-android --variant=release",
+    "android:assembleRelease": "cd android && ./gradlew assembleRelease",
+    "android:bundleRelease": "cd android && ./gradlew bundleRelease",
+    "gradlew:clean": "cd android && ./gradlew clean && cd ..",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"

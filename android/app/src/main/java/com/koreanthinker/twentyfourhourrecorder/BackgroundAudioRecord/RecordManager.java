@@ -27,9 +27,9 @@ public class RecordManager {
 
     private int mAudioSource = MediaRecorder.AudioSource.MIC;
     private int mSampleRate = 16000;
-    private int mChannelCount = AudioFormat.CHANNEL_IN_STEREO;
+    private int mChannelCount = AudioFormat.CHANNEL_IN_MONO;
     private int mAudioFormat = AudioFormat.ENCODING_PCM_16BIT;
-    private int mBufferSize = AudioTrack.getMinBufferSize(mSampleRate, mChannelCount, mAudioFormat);
+    private int mBufferSize = AudioRecord.getMinBufferSize(mSampleRate, mChannelCount, mAudioFormat);
 
     private AudioRecord mAudioRecord = null;
     private Thread mRecordThread = null;
@@ -154,8 +154,12 @@ public class RecordManager {
         if (isRecording)
             return;
         isRecording = true;
+        Log.d(TAG, mAudioSource + ", " + mSampleRate + ", " + mChannelCount + ", " + mAudioFormat + ", " + mBufferSize);
         mAudioRecord = new AudioRecord(mAudioSource, mSampleRate, mChannelCount, mAudioFormat, mBufferSize);
+        Log.d(TAG, mAudioRecord.getState() + "");
+        Log.d(TAG, "2");
         mAudioRecord.startRecording();
+        Log.d(TAG, "3");
         mRecordThread = new Thread(new Runnable() {
             @Override
             public void run() {

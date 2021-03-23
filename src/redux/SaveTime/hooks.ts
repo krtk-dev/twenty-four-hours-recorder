@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '..';
 import { useCallback } from 'react';
-import { changeTimeIndex } from '.';
+import { changeTimeIndex } from './index';
 import { saveTimeOptionIndex } from './types';
 
 
