@@ -23,7 +23,7 @@
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
     "buffer": "^5.6.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.11.0",
     "react-native": "0.62.3",
     "react-native-billing": "^3.0.0",
